@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -81,7 +81,7 @@ $route['admin/save_upload_room'] = 'room/save_upload_room';
 $route['admin/list_karyawan'] = 'subadmin/list_karyawan';
 $route['admin/add_karyawan'] = 'subadmin/add_karyawan';
 $route['admin/save_karyawan'] = 'subadmin/save_karyawan';
-$route['admin/hapus_karyawan/(:num)'] = 'subadmin/hapus_karyawan/$1';	
+$route['admin/hapus_karyawan/(:num)'] = 'subadmin/hapus_karyawan/$1';
 $route['admin/list_room_dep'] = 'subadmin/list_room_dep';
 $route['admin/edit_karyawan/(:num)'] = 'subadmin/edit_karyawan/$1';
 $route['admin/save_edit_karyawan'] = 'subadmin/save_edit_karyawan';
@@ -93,3 +93,11 @@ $route['admin/monitoring'] = 'control/monitoring';
 $route['admin/monitoringdep'] = 'control/monitoringdep';
 $route['admin/positionswitch'] = 'control/positionswitch';
 $route['admin/control_relay'] = 'control/control_relay';
+
+$route['admin/notif'] = 'notif/index';
+$route['admin/notif/create'] = 'notif/create';
+$route['admin/notif/store'] = 'notif/store';
+$route['admin/notif/edit/(:num)'] = 'notif/edit/$1';
+$route['admin/notif/update/(:num)'] = 'notif/update/$1';
+$route['admin/notif/delete/(:num)'] = 'notif/delete/$1';
+$route['admin/notif/enable'] = 'notif/enable';
