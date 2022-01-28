@@ -69,9 +69,15 @@ class Admin extends CI_Controller
 				}
 			}
 
-			$data['allRoom'] = $this->db->get_where('room', ['flag_dashboard' => 0, 'type' => 'public'])->result();
+			$data['allRoom'] = $this->db->get_where('room', ['type' => 'public'])->result();
 			$data['nama_room_dash'] = $nama_room_dash;
 			$data['dataAccess'] = $this->m_admin->getRoomByID($id_room_dash, $thismonth, $nextmonth);
+			$data['ruang_tunggu'] = 'Ruang Tunggu';
+			$data['dataRuangTunggu'] = $this->m_admin->getRoomByID(2, $thismonth, $nextmonth);
+			$data['prod_work'] = 'Production Workshop';
+			$data['dataProductionWorkshop'] = $this->m_admin->getRoomByID(5, $thismonth, $nextmonth);
+			$data['office'] = 'Office Pintu 1';
+			$data['dataOffice'] = $this->m_admin->getRoomByID(8, $thismonth, $nextmonth);
 			$data['department'] = $this->m_admin->get_department();
 			$data['karyawan'] = $this->m_admin->getKaryawan();
 			$data['room'] = $this->m_admin->getRoom();
