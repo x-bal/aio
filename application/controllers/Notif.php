@@ -16,7 +16,7 @@ class Notif extends CI_Controller
             'iduser' => $this->session->userdata('id'),
             'username' => $this->session->userdata('username'),
             'email' => $this->session->userdata('email'),
-            'avatar' => $this->session->userdata('avatar'),
+            'avatar' => $this->session->userdata('image'),
             'role' => $this->session->userdata('role'),
             'rooms' => $this->db->get('room')->result(),
             'notifs' => !$this->input->get('room') | $this->input->get('room') == 'all' ? $this->M_Notif->get() : $this->M_Notif->getByRoom($this->input->get('room')),
@@ -57,6 +57,7 @@ class Notif extends CI_Controller
             ];
 
             $this->M_Notif->create($data);
+            $this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Data berhasil di tambahkan</div>");
             redirect(base_url('admin/notif'));
         }
     }
@@ -118,10 +119,10 @@ class Notif extends CI_Controller
                 'id_room' => $this->input->post('room'),
                 'id_karyawan' => $this->input->post('karyawan'),
                 'id_chat' => $this->input->post('idchat'),
-                'enable' => 1
             ];
 
             $this->M_Notif->update($id, $data);
+            $this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Data berhasil di update</div>");
             redirect(base_url('admin/notif'));
         }
     }

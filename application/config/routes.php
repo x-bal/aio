@@ -87,6 +87,8 @@ $route['admin/edit_karyawan/(:num)'] = 'subadmin/edit_karyawan/$1';
 $route['admin/save_edit_karyawan'] = 'subadmin/save_edit_karyawan';
 $route['admin/set_access/(:num)'] = 'subadmin/set_access/$1';
 $route['admin/save_set_access'] = 'subadmin/save_set_access';
+$route['admin/menu_access/(:num)'] = 'subadmin/menu_access/$1';
+$route['admin/menu_access_update/(:num)'] = 'subadmin/menu_access_update/$1';
 
 $route['admin/control'] = 'control/control';
 $route['admin/monitoring'] = 'control/monitoring';
@@ -101,3 +103,8 @@ $route['admin/notif/edit/(:num)'] = 'notif/edit/$1';
 $route['admin/notif/update/(:num)'] = 'notif/update/$1';
 $route['admin/notif/delete/(:num)'] = 'notif/delete/$1';
 $route['admin/notif/enable'] = 'notif/enable';
+
+
+$route['karyawan/monitoringdep'] = 'control/monitoringdep';
+$route['karyawan/positionswitch'] = 'control/positionswitch';
+$route['karyawan/control_relay'] = 'control/control_relay';

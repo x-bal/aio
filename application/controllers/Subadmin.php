@@ -394,4 +394,32 @@ class Subadmin extends CI_Controller
 			}
 		}
 	}
+
+	public function menu_access($id)
+	{
+		$data = [
+			'namauser' => $this->session->userdata('userlogin'),
+			'iduser' => $this->session->userdata('id'),
+			'username' => $this->session->userdata('username'),
+			'email' => $this->session->userdata('email'),
+			'avatar' => $this->session->userdata('image'),
+			'role' => $this->session->userdata('role'),
+			'karyawan' => $this->db->get_where('karyawan', ['id_karyawan' => $id])->row()
+		];
+
+		$this->load->view('admin/v_menu_access', $data);
+	}
+
+	public function menu_access_update($id)
+	{
+		$input = [
+			'control_room' => $this->input->post('control_room'),
+			'monitoring_room' => $this->input->post('monitoring_room'),
+		];
+
+		$this->db->where('id_karyawan', $id);
+		$this->db->update('karyawan', $input);
+
+		redirect(base_url('admin/list_karyawan'));
+	}
 }

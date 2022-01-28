@@ -317,6 +317,41 @@ if (!isset($note)) {
             <!-- /.nav-tabs-custom -->
 
           </section>
+
+          <?php foreach ($allRoom as $rm) : ?>
+            <section class="col-lg-6 connectedSortable">
+              <!-- Custom tabs (Charts with tabs)-->
+              <div class="nav-tabs-custom">
+                <!-- Tabs within a box -->
+                <div class="box box-default">
+                  <div class="box-header with-border">
+                    <h3 class="box-title"><?= $rm->nama_room; ?> Access by Dept <?= $note; ?></h3>
+
+                    <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                  </div>
+                  <!-- /.box-header -->
+                  <div id="canvas-holder" class="box-body">
+                    <div class="row">
+                      <canvas id="cart-<?= $rm->nama_room ?>" class="cart-<?= $rm->nama_room ?>"></canvas>
+                      <!-- <button class="btn btn-box-tool" id="randomizeData">Randomize Data</button>
+                  <button class="btn btn-box-tool" id="addDataset">Add Dataset</button>
+                  <button class="btn btn-box-tool" id="removeDataset">Remove Dataset</button> -->
+                    </div>
+                    <!-- /.row -->
+                  </div>
+                  <!-- /.box-body -->
+                </div>
+              </div>
+              <!-- /.nav-tabs-custom -->
+
+            </section>
+            <?php $count = $this->db->query("SELECT COUNT(id_karyawan) as kary FROM `log` JOIN `room` ON log.id_room = room.id_room JOIN `department` ON room.id_department = department.id_department WHERE room.id_room = $rm->id_room GROUP BY room.id_department")->result();
+            var_dump($count) ?>
+          <?php endforeach; ?>
         </div>
         <!-- /.row (main row) -->
 
@@ -426,6 +461,56 @@ if (!isset($note)) {
       window.myPie = new Chart(ctx, config);
     };
   </script>
+
+  <?php foreach ($allRoom as $r) : ?>
+    <script>
+      let config = {
+        type: 'doughnut',
+        data: {
+          datasets: [{
+            data: [
+              <?= count($this->db->get_where('log', ['id_room' => $r->id_room])->result()) . ',' ?>
+            ],
+            backgroundColor: [
+              window.chartColors.red,
+              window.chartColors.orange,
+              window.chartColors.yellow,
+              window.chartColors.green,
+              window.chartColors.blue,
+              window.chartColors.purple,
+              window.chartColors.grey,
+              window.chartColors.red,
+              window.chartColors.orange,
+              window.chartColors.yellow,
+              window.chartColors.green,
+              window.chartColors.blue,
+              window.chartColors.purple,
+              window.chartColors.grey,
+            ],
+            label: 'Dataset <?= $r->nama_room ?>'
+          }],
+          labels: [
+            <?php
+            if (isset($department)) {
+              foreach ($department as $key => $value) {
+                echo "'" . $value->nama_department . "',";
+              }
+            };
+            ?>
+          ]
+        },
+        options: {
+          responsive: true
+        }
+      };
+
+      window.onload = function() {
+        var ctx = document.getElementById('chart-<?= $r->nama_room ?>').getContext('2d');
+        window.myPie = new Chart(ctx, config);
+      };
+    </script>
+  <?php endforeach; ?>
+
   <!-- page script -->
   <script>
     $(function() {

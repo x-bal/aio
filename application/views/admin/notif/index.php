@@ -56,6 +56,7 @@
 
             <!-- Main content -->
             <section class="content">
+                <?= $this->session->flashdata('pesan') ?>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="box">
@@ -118,7 +119,7 @@
                                                     <td><?= $notif->nama_karyawan ?></td>
                                                     <td><?= $notif->id_chat ?></td>
                                                     <td>
-                                                        <span class="btn btn-sm btn-<?= $notif->enable == 1 ? 'success' : 'danger' ?>"><?= $notif->enable == 1 ? 'Enable' : 'Disable' ?></span>
+                                                        <span class="text-<?= $notif->enable == 1 ? '' : 'danger' ?>"><?= $notif->enable == 1 ? 'Enable' : 'Disable' ?></span>
                                                     </td>
                                                     <td>
                                                         <a href="<?= base_url('admin/notif/edit/' . $notif->id_telegram) ?>" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>

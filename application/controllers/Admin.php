@@ -69,6 +69,7 @@ class Admin extends CI_Controller
 				}
 			}
 
+			$data['allRoom'] = $this->db->get_where('room', ['flag_dashboard' => 0, 'type' => 'public'])->result();
 			$data['nama_room_dash'] = $nama_room_dash;
 			$data['dataAccess'] = $this->m_admin->getRoomByID($id_room_dash, $thismonth, $nextmonth);
 			$data['department'] = $this->m_admin->get_department();
@@ -589,6 +590,7 @@ class Admin extends CI_Controller
 
 				$data['set'] = "setting";
 				$data['secretKey'] = $this->m_admin->getSecretKey();
+				$data['tokenTelegram'] = $this->m_admin->getTokenTelegram();
 				$data['room_dashboard'] = $this->m_room->get_room_public();
 				$this->load->view('admin/v_setting', $data);
 			} else {

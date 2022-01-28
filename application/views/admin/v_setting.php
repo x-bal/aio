@@ -118,6 +118,17 @@
 
                 </div>
                 <!-- /.box-body -->
+                <div class="box-body table-responsive">
+                  <div class="callout callout-info">
+                    <h4><i class="icon fa fa-telegram"></i> TOKEN TELEGRAM</h4>
+
+                    <?php
+                    if (isset($tokenTelegram)) {
+                      echo "<i class='icon fa fa-lock'></i> <b>" . $tokenTelegram->key . "</b>";
+                    }
+                    ?>
+                  </div>
+                </div>
               </div>
               <!-- /.box -->
             </div>
