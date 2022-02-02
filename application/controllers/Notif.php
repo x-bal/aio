@@ -7,6 +7,11 @@ class Notif extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->model('M_Notif');
+
+        if (!$this->session->userdata('userlogin')) {
+            $this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Mohon Login terlebih dahulu</div>");
+            redirect(base_url() . 'login/admin');
+        }
     }
 
     public function index()
@@ -33,7 +38,7 @@ class Notif extends CI_Controller
             'iduser' => $this->session->userdata('id'),
             'username' => $this->session->userdata('username'),
             'email' => $this->session->userdata('email'),
-            'avatar' => $this->session->userdata('avatar'),
+            'avatar' => $this->session->userdata('image'),
             'role' => $this->session->userdata('role'),
             'rooms' => $this->db->get('room')->result(),
             'karyawan' => $this->db->get('karyawan')->result()
@@ -131,5 +136,18 @@ class Notif extends CI_Controller
     {
         $this->M_Notif->delete($id);
         redirect(base_url('admin/notif'));
+    }
+
+    public function setToken($id)
+    {
+        $data = [
+            'key' => $this->input->post('token', true)
+        ];
+
+        $this->db->where('id_key', $id);
+        $this->db->update('secret_key', $data);
+
+        $this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Data berhasil di update</div>");
+        redirect(base_url('admin/setting'));
     }
 }

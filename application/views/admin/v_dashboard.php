@@ -3,39 +3,39 @@ $datax = [];
 $iddepcursor = [];
 $y = 0;
 
-$dataTunggu = [];
-$idDepTunggu = [];
-$tunggu = 0;
+$dataxdua = [];
+$iddua = [];
+$dua = 0;
 
-$dataProduction = [];
-$idDepProduction = [];
-$production = 0;
+$dataxtiga = [];
+$idtiga = [];
+$tiga = 0;
 
-$dataOffice = [];
-$idDepOffice = [];
-$office = 0;
+$dataxempat = [];
+$idempat = [];
+$empat = 0;
 
 if (isset($department)) {
   $datax[0] = 0;
-  $dataTunggu[0] = 0;
-  $dataProduction[0] = 0;
-  $dataOffice[0] = 0;
+  $dataxdua[0] = 0;
+  $dataxtiga[0] = 0;
+  $dataxempat[0] = 0;
 
   foreach ($department as $key => $value) {
     $datax[$value->id_department] = 0;
-    $dataTunggu[$value->id_department] = 0;
-    $dataProduction[$value->id_department] = 0;
-    $dataOffice[$value->id_department] = 0;
+    $dataxdua[$value->id_department] = 0;
+    $dataxtiga[$value->id_department] = 0;
+    $dataxempat[$value->id_department] = 0;
 
     $iddepcursor[$y] = $value->id_department;
-    $idDepTunggu[$tunggu] = $value->id_department;
-    $idDepProduction[$production] = $value->id_department;
-    $idDepOffice[$office] = $value->id_department;
+    $iddua[$dua] = $value->id_department;
+    $idtiga[$tiga] = $value->id_department;
+    $idempat[$empat] = $value->id_department;
 
     $y++;
-    $tunggu++;
-    $production++;
-    $office++;
+    $dua++;
+    $tiga++;
+    $empat++;
   }
 };
 
@@ -48,24 +48,24 @@ if (isset($dataAccess)) {
 }
 
 
-if (isset($dataRuangTunggu)) {
-  foreach ($dataRuangTunggu as $key => $value) {
-    $dataTunggu[$value->id_department]++;
+if (isset($dataAccessDua)) {
+  foreach ($dataAccessDua as $key => $value) {
+    $dataxdua[$value->id_department]++;
   }
 }
 
-if (isset($dataProductionWorkshop)) {
-  foreach ($dataProductionWorkshop as $key => $value) {
-    $dataProduction[$value->id_department]++;
+if (isset($dataAccessTiga)) {
+  foreach ($dataAccessTiga as $key => $value) {
+    $dataxtiga[$value->id_department]++;
   }
 }
 
-// if (isset($dataOffice)) {
-//   var_dump($dataOffice);
-//   foreach ($dataOffice as $key) {
-//     // $dataOffice[$value->id_department]++;
-//   }
-// }
+if (isset($dataAccessEmpat)) {
+  foreach ($dataAccessEmpat as $key => $value) {
+    $dataxempat[$value->id_department]++;
+  }
+}
+
 
 // for ($i=0; $i <= $y; $i++) { 
 //   echo $datax[$i];
@@ -213,7 +213,7 @@ if (!isset($note)) {
               <div class="inner">
                 <h3><?= $jmlLog; ?></h3>
 
-                <p>30 day Access Granted</p>
+                <p><?= $note ?? '30 day Access Granted' ?> </p>
               </div>
               <div class="icon">
                 <i class="ion ion-forward"></i>
@@ -274,7 +274,7 @@ if (!isset($note)) {
               <!-- Tabs within a box -->
               <div class="box box-default">
                 <div class="box-header with-border">
-                  <h3 class="box-title"><?= $nama_room_dash; ?> Access by Dept <?= $note; ?></h3>
+                  <h3 class="box-title"><?= $nama_room_dash; ?> Access by Dept Exclude <?= $nama_exclude ?> <?= $note; ?></h3>
 
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -359,7 +359,7 @@ if (!isset($note)) {
               <!-- Tabs within a box -->
               <div class="box box-default">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Ruang Tunggu Access by Dept <?= $note; ?></h3>
+                  <h3 class="box-title"><?= $nama_room_dash_dua ?> Access by Dept Exclude <?= $nama_exclude ?> <?= $note; ?></h3>
 
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -396,7 +396,7 @@ if (!isset($note)) {
                             </tr>
                           </thead>
                           <tbody>
-                            <?php if (empty($dataRuangTunggu)) { ?>
+                            <?php if (empty($dataAccessDua)) { ?>
 
                               <tr>
                                 <td>Data tidak ditemukan</td>
@@ -407,7 +407,7 @@ if (!isset($note)) {
                               </tr>
                               <?php } else {
                               $no = 0;
-                              foreach ($dataRuangTunggu as $tg) {
+                              foreach ($dataAccessDua as $tg) {
                                 $no++; ?>
                                 <tr>
                                   <td style="text-align:center"><?php echo $no; ?></td>
@@ -444,7 +444,7 @@ if (!isset($note)) {
               <!-- Tabs within a box -->
               <div class="box box-default">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Production Workshop Access by Dept <?= $note; ?></h3>
+                  <h3 class="box-title"><?= $nama_room_dash_tiga ?> Access by Dept Exclude <?= $nama_exclude ?> <?= $note; ?></h3>
 
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -481,7 +481,7 @@ if (!isset($note)) {
                             </tr>
                           </thead>
                           <tbody>
-                            <?php if (empty($dataProductionWorkshop)) { ?>
+                            <?php if (empty($dataAccessTiga)) { ?>
 
                               <tr>
                                 <td>Data tidak ditemukan</td>
@@ -492,7 +492,7 @@ if (!isset($note)) {
                               </tr>
                               <?php } else {
                               $no = 0;
-                              foreach ($dataProductionWorkshop as $tg) {
+                              foreach ($dataAccessTiga as $tg) {
                                 $no++; ?>
                                 <tr>
                                   <td style="text-align:center"><?php echo $no; ?></td>
@@ -523,11 +523,11 @@ if (!isset($note)) {
 
           </section>
 
-          <!-- <section class="col-lg-12 connectedSortable">
+          <section class="col-lg-12 connectedSortable">
             <div class="nav-tabs-custom">
               <div class="box box-default">
                 <div class="box-header with-border">
-                  <h3 class="box-title">Pintu Office 1 Access by Dept <?= $note; ?></h3>
+                  <h3 class="box-title"><?= $nama_room_dash_empat ?> Access by Dept Exclude <?= $nama_exclude ?> <?= $note; ?></h3>
 
                   <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -559,7 +559,7 @@ if (!isset($note)) {
                             </tr>
                           </thead>
                           <tbody>
-                            <?php if (empty($dataOffice)) { ?>
+                            <?php if (empty($dataAccessEmpat)) { ?>
 
                               <tr>
                                 <td>Data tidak ditemukan</td>
@@ -570,7 +570,7 @@ if (!isset($note)) {
                               </tr>
                               <?php } else {
                               $no = 0;
-                              foreach ($dataOffice as $tg) {
+                              foreach ($dataAccessEmpat as $tg) {
                                 $no++; ?>
                                 <tr>
                                   <td style="text-align:center"><?php echo $no; ?></td>
@@ -594,7 +594,7 @@ if (!isset($note)) {
               </div>
             </div>
 
-          </section> -->
+          </section>
           <!-- /.Left col -->
           <!-- right col -->
 
@@ -713,8 +713,8 @@ if (!isset($note)) {
       datasets: [{
         data: [
           <?php
-          for ($i = 0; $i < $tunggu; $i++) {
-            echo $dataTunggu[$idDepTunggu[$i]] . ",";
+          for ($i = 0; $i < $dua; $i++) {
+            echo $dataxdua[$iddua[$i]] . ",";
           };
           ?>
         ],
@@ -751,8 +751,8 @@ if (!isset($note)) {
       datasets: [{
         data: [
           <?php
-          for ($i = 0; $i < $production; $i++) {
-            echo $dataProduction[$idDepProduction[$i]] . ",";
+          for ($i = 0; $i < $tiga; $i++) {
+            echo $dataxtiga[$idtiga[$i]] . ",";
           };
           ?>
         ],
@@ -789,8 +789,8 @@ if (!isset($note)) {
       datasets: [{
         data: [
           <?php
-          for ($i = 0; $i < $office; $i++) {
-            echo $dataOffice[$idDepOffice[$i]] . ",";
+          for ($i = 0; $i < $empat; $i++) {
+            echo $dataxempat[$idempat[$i]] . ",";
           };
           ?>
         ],

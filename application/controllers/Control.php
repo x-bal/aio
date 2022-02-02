@@ -10,6 +10,11 @@ class Control extends CI_Controller
 		$this->load->model('m_admin');
 		$this->load->model('m_room');
 		date_default_timezone_set("asia/jakarta");
+
+		if (!$this->session->userdata('userlogin')) {
+			$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Mohon Login terlebih dahulu</div>");
+			redirect(base_url() . 'login/admin');
+		}
 	}
 
 	public function index()

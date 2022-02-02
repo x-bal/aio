@@ -14,6 +14,11 @@ class Admin extends CI_Controller
 		$this->load->model('m_room');
 		$this->load->library('bcrypt');
 		date_default_timezone_set("asia/jakarta");
+
+		if (!$this->session->userdata('userlogin')) {
+			$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Mohon Login terlebih dahulu</div>");
+			redirect(base_url() . 'login/admin');
+		}
 	}
 
 	public function index()
@@ -69,15 +74,22 @@ class Admin extends CI_Controller
 				}
 			}
 
+			$flag2 = $this->db->get_where('room', ['flag_dashboard_dua' => 1])->row();
+			$flag3 = $this->db->get_where('room', ['flag_dashboard_tiga' => 1])->row();
+			$flag4 = $this->db->get_where('room', ['flag_dashboard_empat' => 1])->row();
+
+			$exclude = $this->db->get_where('department', ['exclude' => 1])->row();
+
 			$data['allRoom'] = $this->db->get_where('room', ['type' => 'public'])->result();
 			$data['nama_room_dash'] = $nama_room_dash;
-			$data['dataAccess'] = $this->m_admin->getRoomByID($id_room_dash, $thismonth, $nextmonth);
-			$data['ruang_tunggu'] = 'Ruang Tunggu';
-			$data['dataRuangTunggu'] = $this->m_admin->getRoomByID(2, $thismonth, $nextmonth);
-			$data['prod_work'] = 'Production Workshop';
-			$data['dataProductionWorkshop'] = $this->m_admin->getRoomByID(5, $thismonth, $nextmonth);
-			$data['office'] = 'Office Pintu 1';
-			$data['dataOffice'] = $this->m_admin->getRoomByID(8, $thismonth, $nextmonth);
+			$data['nama_room_dash_dua'] = $flag2->nama_room;
+			$data['nama_room_dash_tiga'] = $flag3->nama_room;
+			$data['nama_room_dash_empat'] = $flag4->nama_room;
+			$data['nama_exclude'] = $exclude->nama_department;
+			$data['dataAccess'] = $this->m_admin->getRoomByID($id_room_dash, $thismonth, $nextmonth, $exclude->id_department);
+			$data['dataAccessDua'] = $this->m_admin->getRoomByID($flag2->id_room, $thismonth, $nextmonth, $exclude->id_department);
+			$data['dataAccessTiga'] = $this->m_admin->getRoomByID($flag3->id_room, $thismonth, $nextmonth, $exclude->id_department);
+			$data['dataAccessEmpat'] = $this->m_admin->getRoomByID($flag4->id_room, $thismonth, $nextmonth, $exclude->id_department);
 			$data['department'] = $this->m_admin->get_department();
 			$data['karyawan'] = $this->m_admin->getKaryawan();
 			$data['room'] = $this->m_admin->getRoom();
@@ -598,6 +610,8 @@ class Admin extends CI_Controller
 				$data['secretKey'] = $this->m_admin->getSecretKey();
 				$data['tokenTelegram'] = $this->m_admin->getTokenTelegram();
 				$data['room_dashboard'] = $this->m_room->get_room_public();
+				$data['departments'] = $this->db->get('department')->result();
+
 				$this->load->view('admin/v_setting', $data);
 			} else {
 				$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Area khusus super admin</div>");
@@ -820,22 +834,49 @@ class Admin extends CI_Controller
 			$role = $this->session->userdata('role');
 
 			if ($role == 1) {
-				if (isset($_POST['room_dash'])) {
-					$id_room = $this->input->post('room_dash');
+				$room = $this->db->get_where('room', ['type' => 'public'])->result();
 
-					$clear = array('flag_dashboard' => 0,);
-					$this->m_room->clear_flag_dashboard($clear);
-
-					$data = array('flag_dashboard' => 1,);
-					if ($this->m_room->room_update($id_room, $data)) {
-						$this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Data berhasil di update</div>");
-					} else {
-						$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Data gagal di update</div>");
+				if ($this->input->post('room_dash')) {
+					foreach ($room as $rm) {
+						$this->db->where('id_room', $rm->id_room);
+						$this->db->update('room', ['flag_dashboard' => 0]);
 					}
-				} else {
-					$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Salah Parameter</div>");
+
+					$this->db->where('id_room', $this->input->post('room_dash'));
+					$this->db->update('room', ['flag_dashboard' => 1]);
 				}
 
+				if ($this->input->post('room_dash_dua')) {
+					foreach ($room as $rm) {
+						$this->db->where('id_room', $rm->id_room);
+						$this->db->update('room', ['flag_dashboard_dua' => 0]);
+					}
+
+					$this->db->where('id_room', $this->input->post('room_dash_dua'));
+					$this->db->update('room', ['flag_dashboard_dua' => 1]);
+				}
+
+				if ($this->input->post('room_dash_tiga')) {
+					foreach ($room as $rm) {
+						$this->db->where('id_room', $rm->id_room);
+						$this->db->update('room', ['flag_dashboard_tiga' => 0]);
+					}
+
+					$this->db->where('id_room', $this->input->post('room_dash_tiga'));
+					$this->db->update('room', ['flag_dashboard_tiga' => 1]);
+				}
+
+				if ($this->input->post('room_dash_empat')) {
+					foreach ($room as $rm) {
+						$this->db->where('id_room', $rm->id_room);
+						$this->db->update('room', ['flag_dashboard_empat' => 0]);
+					}
+
+					$this->db->where('id_room', $this->input->post('room_dash_empat'));
+					$this->db->update('room', ['flag_dashboard_empat' => 1]);
+				}
+
+				$this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Data berhasil di update</div>");
 				redirect(base_url() . 'admin/setting');
 			} else {
 				$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Area khusus super admin</div>");
@@ -845,5 +886,21 @@ class Admin extends CI_Controller
 			$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Mohon Login terlebih dahulu</div>");
 			redirect(base_url() . 'login/admin');
 		}
+	}
+
+	public function exclude()
+	{
+		$departments = $this->db->get('department')->result();
+
+		foreach ($departments as $department) {
+			$this->db->where('id_department', $department->id_department);
+			$this->db->update('department', ['exclude' => 0]);
+		}
+
+		$this->db->where('id_department', $this->input->post('exclude'));
+		$this->db->update('department', ['exclude' => 1]);
+
+		$this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Data berhasil di update</div>");
+		redirect(base_url() . 'admin/setting');
 	}
 }

@@ -257,7 +257,7 @@
                             <td style="text-align:center"><?php echo date("d-M-Y H:i:s", $row->created_karyawan); ?></td>
                             <td style="text-align: center">
                               <a href="<?= base_url() ?>admin/set_access/<?= $row->id_karyawan ?>" title="Set Access Room" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-list"></i></a>
-                              <a href="<?= base_url() ?>admin/menu_access/<?= $row->id_karyawan ?>" title="Set Access Room" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-th"></i></a>
+                              <a href="<?= base_url() ?>admin/menu_access/<?= $row->id_karyawan ?>?role=karyawan" title="Set Menu Access Room" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-th"></i></a>
                               <a href="<?= base_url() ?>admin/edit_karyawan/<?= $row->id_karyawan ?>" title="Edit Karyawan" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                               <a href="<?= base_url() ?>admin/hapus_karyawan/<?= $row->id_karyawan ?>" title="Hapus Karyawan" class="btn btn-danger btn-sm" onclick="return confirm('Anda Yakin menghapus data ini?')"><i class="glyphicon glyphicon-trash"></i></a>
                             </td>

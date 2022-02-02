@@ -105,6 +105,6 @@ $route['admin/notif/delete/(:num)'] = 'notif/delete/$1';
 $route['admin/notif/enable'] = 'notif/enable';
 
 
-$route['karyawan/monitoringdep'] = 'control/monitoringdep';
+$route['karyawan/monitoringdep'] = 'karyawan/monitoringdep';
 $route['karyawan/positionswitch'] = 'control/positionswitch';
 $route['karyawan/control_relay'] = 'control/control_relay';

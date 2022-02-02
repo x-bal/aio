@@ -11,6 +11,11 @@ class Subadmin extends CI_Controller
 		$this->load->model('m_subadmin');
 		$this->load->library('bcrypt');
 		date_default_timezone_set("asia/jakarta");
+
+		if (!$this->session->userdata('userlogin')) {
+			$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Mohon Login terlebih dahulu</div>");
+			redirect(base_url() . 'login/admin');
+		}
 	}
 
 	public function index()
@@ -397,15 +402,31 @@ class Subadmin extends CI_Controller
 
 	public function menu_access($id)
 	{
-		$data = [
-			'namauser' => $this->session->userdata('userlogin'),
-			'iduser' => $this->session->userdata('id'),
-			'username' => $this->session->userdata('username'),
-			'email' => $this->session->userdata('email'),
-			'avatar' => $this->session->userdata('image'),
-			'role' => $this->session->userdata('role'),
-			'karyawan' => $this->db->get_where('karyawan', ['id_karyawan' => $id])->row()
-		];
+		if ($this->input->get('role') == 'karyawan') {
+			$data = [
+				'page' => 'Set Menu Access Karyawan',
+				'namauser' => $this->session->userdata('userlogin'),
+				'iduser' => $this->session->userdata('id'),
+				'username' => $this->session->userdata('username'),
+				'email' => $this->session->userdata('email'),
+				'avatar' => $this->session->userdata('image'),
+				'role' => $this->session->userdata('role'),
+				'user' => $this->db->get_where('karyawan', ['id_karyawan' => $id])->row(),
+				'action' => base_url('admin/menu_access_update/' . $id)
+			];
+		} else {
+			$data = [
+				'page' => 'Set Menu Access Admin',
+				'namauser' => $this->session->userdata('userlogin'),
+				'iduser' => $this->session->userdata('id'),
+				'username' => $this->session->userdata('username'),
+				'email' => $this->session->userdata('email'),
+				'avatar' => $this->session->userdata('image'),
+				'role' => $this->session->userdata('role'),
+				'user' => $this->db->get_where('user', ['id_user' => $id])->row(),
+				'action' => base_url('admin/menu_access_update/' . $id)
+			];
+		}
 
 		$this->load->view('admin/v_menu_access', $data);
 	}
@@ -417,9 +438,18 @@ class Subadmin extends CI_Controller
 			'monitoring_room' => $this->input->post('monitoring_room'),
 		];
 
-		$this->db->where('id_karyawan', $id);
-		$this->db->update('karyawan', $input);
+		if ($this->input->post('role') == 'karyawan') {
+			$this->db->where('id_karyawan', $id);
+			$this->db->update('karyawan', $input);
 
-		redirect(base_url('admin/list_karyawan'));
+			$this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Data berhasil di update</div>");
+			redirect(base_url('admin/list_karyawan'));
+		} else {
+			$this->db->where('id_user', $id);
+			$this->db->update('user', $input);
+
+			$this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Data berhasil di update</div>");
+			redirect(base_url('admin/list_admin'));
+		}
 	}
 }

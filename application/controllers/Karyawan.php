@@ -15,6 +15,11 @@ class Karyawan extends CI_Controller
 		$this->load->model('m_room');
 		$this->load->library('bcrypt');
 		date_default_timezone_set("asia/jakarta");
+
+		if (!$this->session->userdata('userlogin')) {
+			$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Mohon Login terlebih dahulu</div>");
+			redirect(base_url() . 'login/admin');
+		}
 	}
 
 	public function index()
@@ -676,5 +681,58 @@ class Karyawan extends CI_Controller
 
 		$data['listdepartment'] = $this->m_admin->get_department();
 		$this->load->view('karyawan/v_monitoring', $data);
+	}
+
+	public function monitoringdep()
+	{
+		if ($this->session->userdata('userlogin')) {
+			$namauser = $this->session->userdata('userlogin');
+			$id_karyawan = $this->session->userdata('id_karyawan');
+			$nik = $this->session->userdata('nik');
+			$status = $this->session->userdata('status');
+			$avatar = $this->session->userdata('foto');
+			$id_section = $this->session->userdata('id_section');
+			$nama_section = $this->session->userdata('nama_section');
+			$id_department = $this->session->userdata('id_department');
+			$nama_department = $this->session->userdata('nama_department');
+			$id_position = $this->session->userdata('id_position');
+			$nama_position = $this->session->userdata('nama_position');
+			$disable_remarks = $this->session->userdata('disable_remarks');
+			$rfid = $this->session->userdata('rfid');
+
+			$data['id_karyawan'] = $id_karyawan;
+			$data['namauser'] = $namauser;
+			$data['nik'] = $nik;
+			$data['avatar'] = $avatar;
+			$data['status'] = $status;
+			$data['nama_department'] = $nama_department;
+			$data['nama_section'] = $nama_section;
+			$data['nama_position'] = $nama_position;
+			$data['disable_remarks'] = $disable_remarks;
+			$data['rfid'] = $rfid;
+
+			$id_department = 0;
+			if (isset($_GET['id_department'])) {
+				$id_department = $_GET['id_department'];
+
+				if ($id_department == "all") {
+					redirect(base_url() . 'karyawan/monitoring');
+				}
+			}
+
+			$data['set'] = "monitoring-department";
+			$Doorlock = $this->m_room->get_room_id_department($id_department);
+
+			$data['alldoorlock'] = $Doorlock;
+			$data['id_department'] = $id_department;
+
+			$data['listdepartment'] = $this->m_admin->get_department();
+
+
+			$this->load->view('karyawan/v_monitoring', $data);
+		} else {
+			$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Mohon Login terlebih dahulu</div>");
+			redirect(base_url() . 'login/admin');
+		}
 	}
 }

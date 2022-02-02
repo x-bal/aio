@@ -47,12 +47,12 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Set Menu Access Karyawan
+                    <?= $page ?>
                     <small></small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="<?= base_url(); ?>admin/notif"><i class="fa fa-home"></i> Karyawan</a></li>
-                    <li class="active">Set Menu Access Karyawan</li>
+                    <li><a href="<?= base_url(); ?>admin/notif"><i class="fa fa-users"></i> Karyawan</a></li>
+                    <li class="active"><?= $page ?></li>
                 </ol>
             </section>
 
@@ -62,21 +62,22 @@
                     <div class="col-md-12">
                         <div class="box">
                             <div class="box-header">
-                                Set Menu Access Karyawan
+                                <?= $page ?>
                             </div>
 
                             <div class="box-body">
-                                <form action="<?= base_url('admin/menu_access_update/' . $karyawan->id_karyawan) ?>" method="post">
+                                <form action="<?= $action ?>" method="post">
+                                    <input type="hidden" name="role" value="<?= $this->input->get('role') ?>">
                                     <div class="row">
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <input type="checkbox" name="control_room" id="control_room" <?= $karyawan->control_room == 1 ? 'checked' : '' ?>>
+                                                <input type="checkbox" name="control_room" id="control_room" <?= $user->control_room == 1 ? 'checked' : '' ?> value="<?= $user->control_room ?? 0 ?>">
                                                 <label for="control_room">Control Room</label>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
-                                                <input type="checkbox" name="monitoring_room" id="monitoring_room" <?= $karyawan->monitoring_room == 1 ? 'checked' : '' ?>>
+                                                <input type="checkbox" name="monitoring_room" id="monitoring_room" <?= $user->monitoring_room == 1 ? 'checked' : '' ?> value="<?= $user->monitoring_room ?? 0 ?>">
                                                 <label for="monitoring_room">Monitoring Room</label>
                                             </div>
                                         </div>

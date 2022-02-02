@@ -229,7 +229,7 @@ class m_admin extends CI_Model
         }
     }
 
-    function getRoomByID($id_room, $thismonth, $nextmonth)
+    function getRoomByID($id_room, $thismonth, $nextmonth, $exclude)
     {
         $this->db->select('*');
         $this->db->from('room');
@@ -242,7 +242,7 @@ class m_admin extends CI_Model
 
         $this->db->where('log.access_time >=', $thismonth);
         $this->db->where('log.access_time <', $nextmonth);
-        $this->db->where('department.nama_department !=', 'Engineering');
+        $this->db->where('department.id_department !=', $exclude);
         // $this->db->where('log.keterangan', 'Access Granted');
         $this->db->limit(1000);
         $query = $this->db->get();

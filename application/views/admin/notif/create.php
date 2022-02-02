@@ -35,19 +35,14 @@
 <body class="hold-transition skin-blue-light sidebar-mini">
     <div class="wrapper">
 
-        <?php
-        $this->load->view('admin/contain/header.php');
-
-
-
-        ?>
+        <?php $this->load->view('admin/contain/header.php'); ?>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Daftar Notif Telegram
+                    Create Notif Room
                     <small></small>
                 </h1>
                 <ol class="breadcrumb">
@@ -86,7 +81,7 @@
                                                 <select name="karyawan" id="karyawan" class="form-control karyawan">
                                                     <option disabled selected>-- Select Room --</option>
                                                     <?php foreach ($karyawan as $kry) : ?>
-                                                        <option value="<?= $kry->id_karyawan ?>"><?= $kry->nama_karyawan ?></option>
+                                                        <option value="<?= $kry->id_karyawan ?>"><?= $kry->nama_karyawan ?> - <?= $kry->nik ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
@@ -117,9 +112,7 @@
 
 
 
-        <?php
-        $this->load->view('admin/contain/footer.php');
-        ?>
+        <?php $this->load->view('admin/contain/footer.php'); ?>
 
     </div>
     <!-- ./wrapper -->

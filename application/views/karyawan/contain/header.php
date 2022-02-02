@@ -103,7 +103,7 @@
           <li <?php if ($this->uri->segment(2) == "control") {
                 echo 'class="active"';
               } ?>>
-            <a href="<?= base_url(); ?>karyawan/control?page=1"><i class="fa fa-book"></i> Control Room</a>
+            <a href="<?= base_url(); ?>karyawan/control?page=1"><i class="fa fa-keyboard-o"></i> Control Room</a>
           </li>
         <?php } ?>
 
@@ -111,7 +111,7 @@
           <li <?php if ($this->uri->segment(2) == "monitoring") {
                 echo 'class="active"';
               } ?>>
-            <a href="<?= base_url(); ?>karyawan/monitoring"><i class="fa fa-book"></i> Monitoring Room</a>
+            <a href="<?= base_url(); ?>karyawan/monitoring"><i class="fa fa-window-restore"></i> Monitoring Room</a>
           </li>
         <?php endif; ?>
       <?php endif; ?>
