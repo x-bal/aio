@@ -208,7 +208,7 @@ if (isset($_GET['page'])) {
                         foreach ($listdoorlock as $door) :
                       ?>
                           <div class="col-md-3" style="margin-bottom: 20px;">
-                            <div class="card shadow">
+                            <div class="card shadow" style="background-color: #FEFEFE;">
                               <div class="card-body p-2">
                                 <div class="head flex mb-3" style="justify-content: space-between;">
                                   <div class="title">
@@ -316,28 +316,27 @@ if (isset($_GET['page'])) {
                                   <?php } ?>
                                 </div>
 
-                                <div>
+                                <div class="door">
                                   <center>
                                     <?php
                                     if ($door->open == 0 && $door->auto == 0 && $door->relay_open == 0) {
                                     ?>
-                                      <img src="<?= base_url(); ?>component/dist/images/Lock.svg" alt="" srcset="">
+                                      <img src="<?= base_url(); ?>component/dist/images/Lock.svg" alt="" srcset="" width="200" height="200">
                                       <?php
                                     } else {
                                       if ($door->open == 1) {
                                       ?>
-                                        <img src="<?= base_url(); ?>component/dist/images/Open.svg" alt="" srcset="">
+                                        <img src="<?= base_url(); ?>component/dist/images/Open.svg" alt="" srcset="" width="200" height="200">
                                       <?php
                                       } else {
                                       ?>
-                                        <img src="<?= base_url(); ?>component/dist/images/Close.svg" alt="" srcset="">
+                                        <img src="<?= base_url(); ?>component/dist/images/Close.svg" alt="" srcset="" width="200" height="200">
                                     <?php
                                       }
                                     }
                                     ?>
                                   </center>
                                 </div>
-
                               </div>
                             </div>
                           </div>

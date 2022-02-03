@@ -72,12 +72,12 @@ class m_room extends CI_Model
     {
         $datapage = $page;
         $datapage--;
-        $datapage *= 6;
+        $datapage *= 8;
         $this->db->select('*, room.created_at as created_room');
         $this->db->from('room');
         $this->db->where('room.deleted', 0);
         $this->db->join('department', 'department.id_department=room.id_department', 'inner');
-        $this->db->limit(6, $datapage);          // get 6 data setelah $datapage(0 atau 6 atau kelipatan)
+        $this->db->limit(8, $datapage);          // get 8 data setelah $datapage(0 atau 8 atau kelipatan)
 
         $query = $this->db->get();
 
