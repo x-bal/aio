@@ -575,7 +575,7 @@ class Karyawan extends CI_Controller
 
 	public function control()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('control_room')) {
 			$namauser = $this->session->userdata('userlogin');
 			$id_karyawan = $this->session->userdata('id_karyawan');
 			$nik = $this->session->userdata('nik');
@@ -648,39 +648,44 @@ class Karyawan extends CI_Controller
 
 	public function monitoring()
 	{
-		$namauser = $this->session->userdata('userlogin');
-		$id_karyawan = $this->session->userdata('id_karyawan');
-		$nik = $this->session->userdata('nik');
-		$status = $this->session->userdata('status');
-		$avatar = $this->session->userdata('foto');
-		$id_section = $this->session->userdata('id_section');
-		$nama_section = $this->session->userdata('nama_section');
-		$id_department = $this->session->userdata('id_department');
-		$nama_department = $this->session->userdata('nama_department');
-		$id_position = $this->session->userdata('id_position');
-		$nama_position = $this->session->userdata('nama_position');
-		$disable_remarks = $this->session->userdata('disable_remarks');
-		$rfid = $this->session->userdata('rfid');
+		if ($this->session->userdata('control_room')) {
+			$namauser = $this->session->userdata('userlogin');
+			$id_karyawan = $this->session->userdata('id_karyawan');
+			$nik = $this->session->userdata('nik');
+			$status = $this->session->userdata('status');
+			$avatar = $this->session->userdata('foto');
+			$id_section = $this->session->userdata('id_section');
+			$nama_section = $this->session->userdata('nama_section');
+			$id_department = $this->session->userdata('id_department');
+			$nama_department = $this->session->userdata('nama_department');
+			$id_position = $this->session->userdata('id_position');
+			$nama_position = $this->session->userdata('nama_position');
+			$disable_remarks = $this->session->userdata('disable_remarks');
+			$rfid = $this->session->userdata('rfid');
 
-		$data['id_karyawan'] = $id_karyawan;
-		$data['namauser'] = $namauser;
-		$data['nik'] = $nik;
-		$data['avatar'] = $avatar;
-		$data['status'] = $status;
-		$data['nama_department'] = $nama_department;
-		$data['nama_section'] = $nama_section;
-		$data['nama_position'] = $nama_position;
-		$data['disable_remarks'] = $disable_remarks;
-		$data['rfid'] = $rfid;
+			$data['id_karyawan'] = $id_karyawan;
+			$data['namauser'] = $namauser;
+			$data['nik'] = $nik;
+			$data['avatar'] = $avatar;
+			$data['status'] = $status;
+			$data['nama_department'] = $nama_department;
+			$data['nama_section'] = $nama_section;
+			$data['nama_position'] = $nama_position;
+			$data['disable_remarks'] = $disable_remarks;
+			$data['rfid'] = $rfid;
 
-		$data['set'] = "monitoring";
-		$Doorlock = $this->m_room->get_room();
-		$totalDoorlock = count($Doorlock);
-		$data['totaldoorlock'] = $totalDoorlock;
-		$data['alldoorlock'] = $Doorlock;
+			$data['set'] = "monitoring";
+			$Doorlock = $this->m_room->get_room();
+			$totalDoorlock = count($Doorlock);
+			$data['totaldoorlock'] = $totalDoorlock;
+			$data['alldoorlock'] = $Doorlock;
 
-		$data['listdepartment'] = $this->m_admin->get_department();
-		$this->load->view('karyawan/v_monitoring', $data);
+			$data['listdepartment'] = $this->m_admin->get_department();
+			$this->load->view('karyawan/v_monitoring', $data);
+		} else {
+			$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Mohon Login terlebih dahulu</div>");
+			redirect(base_url() . 'login/admin');
+		}
 	}
 
 	public function monitoringdep()

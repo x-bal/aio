@@ -24,7 +24,7 @@ class Control extends CI_Controller
 
 	public function control()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('control_room')) {
 			$namauser = $this->session->userdata('userlogin');
 			$iduser = $this->session->userdata('id');
 			$username = $this->session->userdata('username');
@@ -32,54 +32,54 @@ class Control extends CI_Controller
 			$avatar = $this->session->userdata('image');
 			$role = $this->session->userdata('role');
 
-			if ($role == 1) {
-				$data['namauser'] = $namauser;
-				$data['username'] = $username;
-				$data['avatar'] = $avatar;
-				$data['role'] = $role;
+			// if ($role == 1) {
+			$data['namauser'] = $namauser;
+			$data['username'] = $username;
+			$data['avatar'] = $avatar;
+			$data['role'] = $role;
 
-				$data['set'] = "list-control";
-				$Doorlock = $this->m_room->get_room();
-				$totalDoorlock = count($Doorlock);
-				$data['totaldoorlock'] = $totalDoorlock;
-				$data['alldoorlock'] = $Doorlock;
+			$data['set'] = "list-control";
+			$Doorlock = $this->m_room->get_room();
+			$totalDoorlock = count($Doorlock);
+			$data['totaldoorlock'] = $totalDoorlock;
+			$data['alldoorlock'] = $Doorlock;
 
-				$page = 1;
-				if (isset($_GET['page'])) {
-					$page = $_GET['page'];
-					if ($page == 0) {
-						$page = 1;
+			$page = 1;
+			if (isset($_GET['page'])) {
+				$page = $_GET['page'];
+				if ($page == 0) {
+					$page = 1;
+				}
+				$data['listdoorlock'] = $this->m_room->get_room_page($page);
+			} else {
+				$id_department = 0;
+				if (isset($_GET['id_department'])) {
+					$id_department = $_GET['id_department'];
+
+					if ($id_department == "all") {
+						redirect(base_url() . 'admin/control?page=1');
 					}
-					$data['listdoorlock'] = $this->m_room->get_room_page($page);
+					$data['listdoorlock'] = $this->m_room->get_room_id_department($id_department);
 				} else {
-					$id_department = 0;
-					if (isset($_GET['id_department'])) {
-						$id_department = $_GET['id_department'];
-
-						if ($id_department == "all") {
-							redirect(base_url() . 'admin/control?page=1');
-						}
-						$data['listdoorlock'] = $this->m_room->get_room_id_department($id_department);
-					} else {
-						$all = 0;
-						if (isset($_GET['all'])) {
-							$all = $_GET['all'];
-						}
-						if ($all == 1) {
-							$data['listdoorlock'] = $this->m_room->get_room();
-						}
+					$all = 0;
+					if (isset($_GET['all'])) {
+						$all = $_GET['all'];
+					}
+					if ($all == 1) {
+						$data['listdoorlock'] = $this->m_room->get_room();
 					}
 				}
-
-				$data['listdepartment'] = $this->m_admin->get_department();
-
-				//print_r($data['listdoorlock']);
-
-				$this->load->view('admin/v_control', $data);
-			} else {
-				$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Area khusus super admin</div>");
-				redirect(base_url() . 'login/admin');
 			}
+
+			$data['listdepartment'] = $this->m_admin->get_department();
+
+			//print_r($data['listdoorlock']);
+
+			$this->load->view('admin/v_control', $data);
+			// } else {
+			// 	$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Area khusus super admin</div>");
+			// 	redirect(base_url() . 'login/admin');
+			// }
 		} else {
 			$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Mohon Login terlebih dahulu</div>");
 			redirect(base_url() . 'login/admin');
@@ -115,7 +115,7 @@ class Control extends CI_Controller
 
 				$data = array('auto' => $checkbox_position, 'relay_open' => 0);
 				$this->m_room->room_update($id_room, $data);
-				if ($role == 1) {
+				if ($role == 1 || $role == 2) {
 					redirect(base_url() . 'admin/control?' . $link);
 				} else {
 					redirect(base_url() . 'karyawan/control?all=1');
@@ -159,7 +159,7 @@ class Control extends CI_Controller
 
 				$data = array('relay_open' => $checkbox_relay);
 				$this->m_room->room_update($id_room, $data);
-				if ($role == 1) {
+				if ($role == 1 || $role == 2) {
 					redirect(base_url() . 'admin/control?' . $link);
 				} else {
 					redirect(base_url() . 'karyawan/control?all=1');
@@ -176,7 +176,7 @@ class Control extends CI_Controller
 
 	public function monitoring()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('monitoring_room')) {
 			$namauser = $this->session->userdata('userlogin');
 			$iduser = $this->session->userdata('id');
 			$username = $this->session->userdata('username');
@@ -196,7 +196,7 @@ class Control extends CI_Controller
 			$data['alldoorlock'] = $Doorlock;
 
 			$data['listdepartment'] = $this->m_admin->get_department();
-			if ($role == 1) {
+			if ($role == 1 || $role == 2) {
 				$this->load->view('admin/v_monitoring', $data);
 			} else {
 				$this->load->view('karyawan/v_control', $data);
@@ -227,7 +227,7 @@ class Control extends CI_Controller
 				$id_department = $_GET['id_department'];
 
 				if ($id_department == "all") {
-					if ($role == 1) {
+					if ($role == 1 || $role == 2) {
 						redirect(base_url() . 'admin/monitoring');
 					} else {
 						redirect(base_url() . 'karyawan/monitoring');
@@ -244,7 +244,7 @@ class Control extends CI_Controller
 			$data['listdepartment'] = $this->m_admin->get_department();
 
 
-			if ($role == 1) {
+			if ($role == 1 || $role == 2) {
 				$this->load->view('admin/v_monitoring', $data);
 			} else {
 				redirect(base_url('karyawan/monitoring'));

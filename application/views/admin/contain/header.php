@@ -86,20 +86,26 @@
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
+      <?php if ($this->session->userdata('control_room') == 1 || $role == 1) : ?>
+        <li <?php if ($this->uri->segment(2) == "control") echo 'class="active"'; ?>>
+          <a href="<?= base_url(); ?>admin/control?page=1">
+            <i class="fa fa-keyboard-o"></i> <span>Control Room</span>
+          </a>
+        </li>
+      <?php endif; ?>
+
+      <?php if ($this->session->userdata('monitoring_room') == 1 || $role == 1) : ?>
+        <li <?php if ($this->uri->segment(2) == "monitoring") echo 'class="active"'; ?>>
+          <a href="<?= base_url(); ?>admin/monitoring">
+            <i class="fa fa-window-restore"></i> <span>Monitoring Room</span>
+          </a>
+        </li>
+      <?php endif; ?>
+
       <?php
       if (isset($role)) {
         if ($role == 1) {
       ?>
-          <li <?php if ($this->uri->segment(2) == "control") echo 'class="active"'; ?>>
-            <a href="<?= base_url(); ?>admin/control?page=1">
-              <i class="fa fa-keyboard-o"></i> <span>Control Room</span>
-            </a>
-          </li>
-          <li <?php if ($this->uri->segment(2) == "monitoring") echo 'class="active"'; ?>>
-            <a href="<?= base_url(); ?>admin/monitoring">
-              <i class="fa fa-window-restore"></i> <span>Monitoring Room</span>
-            </a>
-          </li>
           <li <?php if ($this->uri->segment(2) == "department") echo 'class="active"'; ?>>
             <a href="<?= base_url(); ?>admin/department">
               <i class="fa fa-building"></i> <span>Department</span>

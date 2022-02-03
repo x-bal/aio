@@ -59,6 +59,8 @@ class Login extends CI_Controller
 					$id_position = $dkey->id_position;
 					$disable_remarks = $dkey->disable_remarks;
 					$rfid = $dkey->uid_rfid;
+					$control_room = $dkey->control_room;
+					$monitoring_room = $dkey->monitoring_room;
 				}
 				//echo $this->bcrypt->check_password($pass, $passDB);
 				if ($this->bcrypt->check_password($pass, $passDB)) {
@@ -73,6 +75,8 @@ class Login extends CI_Controller
 						$this->session->set_userdata('id_position', $id_position);
 						$this->session->set_userdata('disable_remarks', $disable_remarks);
 						$this->session->set_userdata('rfid', $rfid);
+						$this->session->set_userdata('control_room', $control_room);
+						$this->session->set_userdata('monitoring_room', $monitoring_room);
 
 						$dataSect = $this->m_login->get_section_by_id_secton($id_section);
 						$id_department = 0;
@@ -155,6 +159,8 @@ class Login extends CI_Controller
 					$email = $dkey->email;
 					$image = $dkey->image;
 					$role = $dkey->role;
+					$control_room = $dkey->control_room;
+					$monitoring_room = $dkey->monitoring_room;
 					$id_department = $dkey->id_department;
 				}
 				//echo $this->bcrypt->check_password($pass, $passDB);
@@ -166,6 +172,8 @@ class Login extends CI_Controller
 					$this->session->set_userdata('email', $email);
 					$this->session->set_userdata('image', $image);
 					$this->session->set_userdata('role', $role);
+					$this->session->set_userdata('control_room', $control_room);
+					$this->session->set_userdata('monitoring_room', $monitoring_room);
 
 					if ($role == 2) {
 						$dataDept = $this->m_login->get_department_by_id($id_department);

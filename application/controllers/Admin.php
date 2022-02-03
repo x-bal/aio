@@ -335,6 +335,7 @@ class Admin extends CI_Controller
 
 					$arrayData = array('id_department' => $id_department, 'nama' => $nama, 'email' => $email, 'username' => $username);
 
+					$this->m_admin->admin_update($id, $arrayData);
 					if ($this->m_admin->admin_update($id, $arrayData)) {
 						$this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-ok\"></i> Data berhasil di update</div>");
 					} else {
