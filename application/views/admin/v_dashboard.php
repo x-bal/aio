@@ -374,7 +374,7 @@ if (!isset($note)) {
                       <div id="canvas-holder">
                         <div class="row">
                           <div style="width: 100%; height: 100%">
-                            <canvas id="chart-area-tunggu"></canvas>
+                            <canvas id="chart-area-dua"></canvas>
                           </div>
                           <!-- <button class="btn btn-box-tool" id="randomizeData">Randomize Data</button>
                         <button class="btn btn-box-tool" id="addDataset">Add Dataset</button>
@@ -407,19 +407,19 @@ if (!isset($note)) {
                               </tr>
                               <?php } else {
                               $no = 0;
-                              foreach ($dataAccessDua as $tg) {
+                              foreach ($dataAccessDua as $dd) {
                                 $no++; ?>
                                 <tr>
                                   <td style="text-align:center"><?php echo $no; ?></td>
-                                  <td style="text-align:center"><?php echo $tg->nama_karyawan; ?></td>
-                                  <td style="text-align:center"><?php echo $tg->nama_department; ?></td>
+                                  <td style="text-align:center"><?php echo $dd->nama_karyawan; ?></td>
+                                  <td style="text-align:center"><?php echo $dd->nama_department; ?></td>
                                   <td style="text-align:center">
-                                    <?php echo Date("d M y", $tg->access_time); ?><br>
-                                    <?php echo Date("H:i:s", $tg->access_time); ?>
+                                    <?php echo Date("d M y", $dd->access_time); ?><br>
+                                    <?php echo Date("H:i:s", $dd->access_time); ?>
                                   </td>
-                                  <td style="text-align:center"><?php echo $tg->keterangan; ?></td>
+                                  <td style="text-align:center"><?php echo $dd->keterangan; ?></td>
                                   <!-- <td style="text-align:center">
-                        <a href="<?= base_url() ?>admin/edit_position/<?= $tg->id_position ?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+                        <a href="<?= base_url() ?>admin/edit_position/<?= $dd->id_position ?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                     </td> -->
                                 </tr>
                             <?php }
@@ -459,7 +459,7 @@ if (!isset($note)) {
                       <div id="canvas-holder">
                         <div class="row">
                           <div style="width: 100%; height: 100%">
-                            <canvas id="chart-area-prodwork"></canvas>
+                            <canvas id="chart-area-tiga"></canvas>
                           </div>
                           <!-- <button class="btn btn-box-tool" id="randomizeData">Randomize Data</button>
                         <button class="btn btn-box-tool" id="addDataset">Add Dataset</button>
@@ -492,19 +492,19 @@ if (!isset($note)) {
                               </tr>
                               <?php } else {
                               $no = 0;
-                              foreach ($dataAccessTiga as $tg) {
+                              foreach ($dataAccessTiga as $dt) {
                                 $no++; ?>
                                 <tr>
                                   <td style="text-align:center"><?php echo $no; ?></td>
-                                  <td style="text-align:center"><?php echo $tg->nama_karyawan; ?></td>
-                                  <td style="text-align:center"><?php echo $tg->nama_department; ?></td>
+                                  <td style="text-align:center"><?php echo $dt->nama_karyawan; ?></td>
+                                  <td style="text-align:center"><?php echo $dt->nama_department; ?></td>
                                   <td style="text-align:center">
-                                    <?php echo Date("d M y", $tg->access_time); ?><br>
-                                    <?php echo Date("H:i:s", $tg->access_time); ?>
+                                    <?php echo Date("d M y", $dt->access_time); ?><br>
+                                    <?php echo Date("H:i:s", $dt->access_time); ?>
                                   </td>
-                                  <td style="text-align:center"><?php echo $tg->keterangan; ?></td>
+                                  <td style="text-align:center"><?php echo $dt->keterangan; ?></td>
                                   <!-- <td style="text-align:center">
-                        <a href="<?= base_url() ?>admin/edit_position/<?= $tg->id_position ?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
+                        <a href="<?= base_url() ?>admin/edit_position/<?= $dt->id_position ?>" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i></a>
                     </td> -->
                                 </tr>
                             <?php }
@@ -541,7 +541,7 @@ if (!isset($note)) {
                       <div id="canvas-holder">
                         <div class="row">
                           <div style="width: 100%; height: 100%">
-                            <canvas id="chart-area-office"></canvas>
+                            <canvas id="chart-area-empat"></canvas>
                           </div>
                         </div>
                       </div>
@@ -570,17 +570,17 @@ if (!isset($note)) {
                               </tr>
                               <?php } else {
                               $no = 0;
-                              foreach ($dataAccessEmpat as $tg) {
+                              foreach ($dataAccessEmpat as $de) {
                                 $no++; ?>
                                 <tr>
                                   <td style="text-align:center"><?php echo $no; ?></td>
-                                  <td style="text-align:center"><?php echo $tg->nama_karyawan; ?></td>
-                                  <td style="text-align:center"><?php echo $tg->nama_department; ?></td>
+                                  <td style="text-align:center"><?php echo $de->nama_karyawan; ?></td>
+                                  <td style="text-align:center"><?php echo $de->nama_department; ?></td>
                                   <td style="text-align:center">
-                                    <?php echo Date("d M y", $tg->access_time); ?><br>
-                                    <?php echo Date("H:i:s", $tg->access_time); ?>
+                                    <?php echo Date("d M y", $de->access_time); ?><br>
+                                    <?php echo Date("H:i:s", $de->access_time); ?>
                                   </td>
-                                  <td style="text-align:center"><?php echo $tg->keterangan; ?></td>
+                                  <td style="text-align:center"><?php echo $de->keterangan; ?></td>
                                 </tr>
                             <?php }
                             } ?>
@@ -676,14 +676,7 @@ if (!isset($note)) {
             window.chartColors.green,
             window.chartColors.blue,
             window.chartColors.purple,
-            window.chartColors.grey,
-            window.chartColors.red,
-            window.chartColors.orange,
-            window.chartColors.yellow,
-            window.chartColors.green,
-            window.chartColors.blue,
-            window.chartColors.purple,
-            window.chartColors.grey,
+            '#344e41'
           ],
           label: 'Dataset 1'
         }],
@@ -708,7 +701,7 @@ if (!isset($note)) {
     };
 
 
-    var ctx_2 = document.getElementById("chart-area-tunggu").getContext('2d');
+    var ctx_2 = document.getElementById("chart-area-dua").getContext('2d');
     var data_2 = {
       datasets: [{
         data: [
@@ -725,6 +718,7 @@ if (!isset($note)) {
           '#E900FF',
           '#041562',
           '#FFAD60',
+          '#6a040f'
         ],
       }],
       labels: [
@@ -746,7 +740,7 @@ if (!isset($note)) {
       }
     });
 
-    var ctx_3 = document.getElementById("chart-area-prodwork").getContext('2d');
+    var ctx_3 = document.getElementById("chart-area-tiga").getContext('2d');
     var data_3 = {
       datasets: [{
         data: [
@@ -757,12 +751,13 @@ if (!isset($note)) {
           ?>
         ],
         backgroundColor: [
-          '#3498db',
-          '#041562',
-          '#5800FF',
-          '#FFAD60',
-          '#E900FF',
-          '#f56954',
+          '#c9184a',
+          '#014f86',
+          '#4d194d',
+          '#bc6c25',
+          '#e09f3e',
+          '#774936',
+          '#2ec4b6',
         ],
       }],
       labels: [
@@ -784,7 +779,7 @@ if (!isset($note)) {
       }
     });
 
-    var ctx_4 = document.getElementById("chart-area-prodwork").getContext('2d');
+    var ctx_4 = document.getElementById("chart-area-empat").getContext('2d');
     var data_4 = {
       datasets: [{
         data: [
@@ -795,12 +790,13 @@ if (!isset($note)) {
           ?>
         ],
         backgroundColor: [
-          '#f56954',
-          '#E900FF',
-          '#5800FF',
-          '#FFAD60',
-          '#3498db',
-          '#041562',
+          '#0466c8',
+          '#e29578',
+          '#ff0a54',
+          '#c77dff',
+          '#3e5c76',
+          '#ffaa00',
+          '#38b000',
         ],
       }],
       labels: [
