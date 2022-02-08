@@ -149,7 +149,12 @@
           <li <?php if ($this->uri->segment(2) == "notif") {
                 echo 'class="active"';
               } ?>>
-            <a href="<?= base_url(); ?>admin/notif"><i class="fa fa-telegram"></i> Notif Telegram</a>
+            <a href="<?= base_url(); ?>admin/notif"><i class="<?= $this->uri->segment(2) == "control" ? "fab" : "fa"  ?> fa-telegram"></i> Notif </a>
+          </li>
+          <li <?php if ($this->uri->segment(2) == "notif-door") {
+                echo 'class="active"';
+              } ?>>
+            <a href="<?= base_url(); ?>admin/notif-door"><i class="fa fa-exclamation"></i> Notif Door Open </a>
           </li>
           <li <?php if ($this->uri->segment(2) == "setting") {
                 echo 'class="active"';

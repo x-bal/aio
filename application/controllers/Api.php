@@ -9,6 +9,7 @@ class Api extends CI_Controller
 		parent::__construct();
 		$this->load->model('m_api');
 		$this->load->model('m_room');
+		$this->load->library('form_validation');
 		date_default_timezone_set("asia/jakarta");
 	}
 
@@ -163,7 +164,7 @@ class Api extends CI_Controller
 							if ($fa > 0) {			// free access
 								$notif = array('status' => 'success', 'ket' => 'Access Granted', 'nama' => $nama_karyawan, 'department' => $nama_department, 'lock' => 'open', 'nama_room' => $namadev, 'foto' => $statFoto);
 								echo json_encode($notif);
-								$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Granted, Free Access Room', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname);
+								$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Granted, Free Access Room', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname, 'send_notif'=>1);
 								$this->m_api->insert_log($histori);
 							} else {
 								if ($type_dev == "restricted") {
@@ -171,18 +172,18 @@ class Api extends CI_Controller
 										if ($accessRoom > 0) {
 											$notif = array('status' => 'success', 'ket' => 'Access Granted', 'nama' => $nama_karyawan, 'department' => $nama_department, 'lock' => 'open', 'nama_room' => $namadev, 'foto' => $statFoto);
 											echo json_encode($notif);
-											$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Granted', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname);
+											$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Granted', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname, 'send_notif'=>1);
 											$this->m_api->insert_log($histori);
 										} else {
 											$notif = array('status' => 'failed', 'ket' => 'No Access', 'nama' => $nama_karyawan, 'department' => $nama_department, 'lock' => 'close', 'nama_room' => $namadev, 'foto' => $statFoto);
 											echo json_encode($notif);
-											$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, akses ruangan ditolak', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname);
+											$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, akses ruangan ditolak', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname, 'send_notif'=>1);
 											$this->m_api->insert_log($histori);
 										}
 									} else {
 										$notif = array('status' => 'failed', 'ket' => 'No Access', 'nama' => $nama_karyawan, 'department' => $nama_department, 'lock' => 'close', 'nama_room' => $namadev, 'foto' => $statFoto);
 										echo json_encode($notif);
-										$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, Department Tidak Sesuai', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname);
+										$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, Department Tidak Sesuai', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname, 'send_notif'=>1);
 										$this->m_api->insert_log($histori);
 									}
 								} else {
@@ -191,12 +192,12 @@ class Api extends CI_Controller
 										if ($accessRoom > 0) {
 											$notif = array('status' => 'success', 'ket' => 'Access Granted', 'nama' => $nama_karyawan, 'department' => $nama_department, 'lock' => 'open', 'nama_room' => $namadev, 'foto' => $statFoto);
 											echo json_encode($notif);
-											$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Granted', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname);
+											$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Granted', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname, 'send_notif'=>1);
 											$this->m_api->insert_log($histori);
 										} else {
 											$notif = array('status' => 'failed', 'ket' => 'No Access', 'nama' => $nama_karyawan, 'department' => $nama_department, 'lock' => 'close', 'nama_room' => $namadev, 'foto' => $statFoto);
 											echo json_encode($notif);
-											$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, akses ruangan ditolak', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname);
+											$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, akses ruangan ditolak', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname, 'send_notif'=>1);
 											$this->m_api->insert_log($histori);
 										}
 									} else {
@@ -218,25 +219,25 @@ class Api extends CI_Controller
 											if ($id_remarks_room > 0) {
 												$notif = array('status' => 'success', 'ket' => 'Access Granted', 'nama' => $nama_karyawan, 'department' => $nama_department, 'lock' => 'open', 'nama_room' => $namadev, 'foto' => $statFoto);
 												echo json_encode($notif);
-												$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Granted', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => $remarks_text, 'cam' => $imgname);
+												$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Granted', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => $remarks_text, 'cam' => $imgname, 'send_notif'=>1);
 												$this->m_api->insert_log($histori);
 											} else {
 												if ($disable_remarks) {
 													$notif = array('status' => 'success', 'ket' => 'Access Granted', 'nama' => $nama_karyawan, 'department' => $nama_department, 'lock' => 'open', 'nama_room' => $namadev, 'foto' => $statFoto);
 													echo json_encode($notif);
-													$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Granted', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => 'pengecualian, tanpa remarks', 'cam' => $imgname);
+													$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Granted', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => 'pengecualian, tanpa remarks', 'cam' => $imgname, 'send_notif'=>1);
 													$this->m_api->insert_log($histori);
 												} else {
 													$notif = array('status' => 'failed', 'ket' => 'Belum isi remarks', 'nama' => $nama_karyawan, 'department' => $nama_department, 'lock' => 'close', 'nama_room' => $namadev, 'foto' => $statFoto);
 													echo json_encode($notif);
-													$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, belum isi remarks', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname);
+													$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, belum isi remarks', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname, 'send_notif'=>1);
 													$this->m_api->insert_log($histori);
 												}
 											}
 										} else {
 											$notif = array('status' => 'failed', 'ket' => 'No Access', 'nama' => $nama_karyawan, 'department' => $nama_department, 'lock' => 'close', 'nama_room' => $namadev, 'foto' => $statFoto);
 											echo json_encode($notif);
-											$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, akses ruangan ditolak', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname);
+											$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, akses ruangan ditolak', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname, 'send_notif'=>1);
 											$this->m_api->insert_log($histori);
 										}
 									}
@@ -245,7 +246,7 @@ class Api extends CI_Controller
 						} else {
 							$notif = array('status' => 'failed', 'ket' => 'Access Denied', 'nama' => $nama_karyawan, 'department' => $nama_department, 'lock' => 'close', 'nama_room' => $namadev, 'foto' => $statFoto);
 							echo json_encode($notif);
-							$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, Card Disable', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname);
+							$histori = array('id_karyawan' => $id_karyawan, 'keterangan' => 'Access Denied, Card Disable', 'access_time' => time(), 'id_room' => $iddev, 'remarks_log' => '-', 'cam' => $imgname, 'send_notif'=>1);
 							$this->m_api->insert_log($histori);
 						}
 					} else {
@@ -348,7 +349,7 @@ class Api extends CI_Controller
 				}
 
 				if ($count > 0) {
-					$data = array('open' => $doorsensor);
+					$data = array('open' => $doorsensor, 'update_at' => time());
 					$this->m_room->room_update($iddev, $data);
 					$notif = array('status' => 'success', 'ket' => 'Door Sensor Updated');
 					echo json_encode($notif);
@@ -398,6 +399,104 @@ class Api extends CI_Controller
 				echo json_encode($notif);
 			}
 		} else {
+			$notif = array('status' => 'failed', 'ket' => 'salah parameter');
+			echo json_encode($notif);
+		}
+	}
+
+	public function get_notif_telegram(){
+		$this->form_validation->set_rules('key', 'Key', 'required');
+
+		if ($this->form_validation->run() == true) {
+			$key = $this->input->post('key');
+			$cekkey = $this->m_api->getkey();
+
+			if ($cekkey[0]->key == $key) {
+				$getDataSendNotif = $this->m_api->get_send_notif_telegram();
+
+				$notif = array('status' => 'success', 'count' => count($getDataSendNotif), 'data' => $getDataSendNotif);
+				echo json_encode($notif);
+			} else {
+				$notif = array('status' => 'failed', 'ket' => 'salah secret key');
+				echo json_encode($notif);
+			}
+		} else{
+			$notif = array('status' => 'failed', 'ket' => 'salah parameter');
+			echo json_encode($notif);
+		}
+	}
+
+	public function get_idchat_telegram(){
+		$this->form_validation->set_rules('key', 'Key', 'required');
+		$this->form_validation->set_rules('id_room', 'IDRoom', 'required');
+
+		if ($this->form_validation->run() == true) {
+			$key = $this->input->post('key');
+			$cekkey = $this->m_api->getkey();
+
+			if ($cekkey[0]->key == $key) {
+				$id_room = $this->input->post('id_room');
+				$getDataTelegram = $this->m_api->get_idchat_telegram($id_room);
+
+				$notif = array('status' => 'success', 'count' => count($getDataTelegram), 'data' => $getDataTelegram);
+				echo json_encode($notif);
+			} else {
+				$notif = array('status' => 'failed', 'ket' => 'salah secret key');
+				echo json_encode($notif);
+			}
+		} else{
+			$notif = array('status' => 'failed', 'ket' => 'salah parameter');
+			echo json_encode($notif);
+		}
+	}
+
+	public function update_log(){
+		$this->form_validation->set_rules('key', 'Key', 'required');
+		$this->form_validation->set_rules('idlog', 'IDLog', 'required');
+
+		if ($this->form_validation->run() == true) {
+			$key = $this->input->post('key');
+			$cekkey = $this->m_api->getkey();
+
+			if ($cekkey[0]->key == $key) {
+				$id_log = $this->input->post('idlog');
+				$data = array('send_notif' => 0);
+				$this->m_api->log_update($id_log, $data);
+
+				$notif = array('status' => 'success', 'ket' => 'berhasil update log');
+				echo json_encode($notif);
+			} else {
+				$notif = array('status' => 'failed', 'ket' => 'salah secret key');
+				echo json_encode($notif);
+			}
+		} else{
+			$notif = array('status' => 'failed', 'ket' => 'salah parameter');
+			echo json_encode($notif);
+		}
+	}
+
+	public function get_token_telegram(){
+		$this->form_validation->set_rules('key', 'Key', 'required');
+
+		if ($this->form_validation->run() == true) {
+			$key = $this->input->post('key');
+			$cekkey = $this->m_api->getkey();
+
+			if ($cekkey[0]->key == $key) {
+				$getTokenTelegram = $this->m_api->get_token_telegram();
+
+				$token = "";
+				foreach ($getTokenTelegram as $key => $value) {
+					$token = $value->key;
+				}
+
+				$notif = array('status' => 'success', 'token' => $token);
+				echo json_encode($notif);
+			} else {
+				$notif = array('status' => 'failed', 'ket' => 'salah secret key');
+				echo json_encode($notif);
+			}
+		} else{
 			$notif = array('status' => 'failed', 'ket' => 'salah parameter');
 			echo json_encode($notif);
 		}

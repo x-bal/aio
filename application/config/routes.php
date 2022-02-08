@@ -104,6 +104,14 @@ $route['admin/notif/update/(:num)'] = 'notif/update/$1';
 $route['admin/notif/delete/(:num)'] = 'notif/delete/$1';
 $route['admin/notif/enable'] = 'notif/enable';
 
+$route['admin/notif-door'] = 'notifDoor/index';
+$route['admin/notif-door/create'] = 'notifDoor/create';
+$route['admin/notif-door/store'] = 'notifDoor/store';
+$route['admin/notif-door/edit/(:num)'] = 'notifDoor/edit/$1';
+$route['admin/notif-door/update/(:num)'] = 'notifDoor/update/$1';
+$route['admin/notif-door/delete/(:num)'] = 'notifDoor/delete/$1';
+$route['admin/notif-door/enable'] = 'notifDoor/enable';
+
 
 $route['karyawan/monitoringdep'] = 'karyawan/monitoringdep';
 $route['karyawan/positionswitch'] = 'control/positionswitch';

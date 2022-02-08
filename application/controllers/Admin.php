@@ -35,11 +35,15 @@ class Admin extends CI_Controller
 			$email = $this->session->userdata('email');
 			$avatar = $this->session->userdata('image');
 			$role = $this->session->userdata('role');
+			$control_room = $this->session->userdata('control_room');
+			$monitoring_room = $this->session->userdata('monitoring_room');
 
 			$data['namauser'] = $namauser;
 			$data['username'] = $username;
 			$data['avatar'] = $avatar;
 			$data['role'] = $role;
+			$data['control_room'] = $control_room;
+			$data['monitoring_room'] = $monitoring_room;
 
 			$thismonth = strtotime(date("Y-m", strtotime('+0 month')));
 			$nextmonth = strtotime(date('Y-m', strtotime('+1 month')));

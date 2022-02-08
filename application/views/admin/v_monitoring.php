@@ -300,8 +300,8 @@ if (!isset($id_department)) {
           if (result.data[i].auto == 1) {
             auto = "AUTO";
             bgauto = "success";
-            relay = "UNLOCKED";
-            bgrelay = "warning";
+            relay = "LOCKED";
+            bgrelay = "success";
           } else {
             auto = "MANUAL";
             bgauto = "danger";
