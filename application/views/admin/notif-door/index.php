@@ -104,7 +104,7 @@
                                                 <th>Room</th>
                                                 <th>Karyawan</th>
                                                 <th>Id Chat</th>
-                                                <th>Waktu</th>
+                                                <th>Waktu (Menit)</th>
                                                 <th>Status Enable</th>
                                                 <th>Action</th>
                                             </tr>

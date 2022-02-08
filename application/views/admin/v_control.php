@@ -70,24 +70,6 @@ if (isset($_GET['page'])) {
   <link rel="icon" href="<?= base_url(); ?>favicon.ico" type="image/x-icon">
 
   <!-- Bootstrap 3.3.7 -->
-  <!-- <link rel="stylesheet" href="<?= base_url(); ?>component/bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
-  <!-- Font Awesome -->
-  <!-- <link rel="stylesheet" href="<?= base_url(); ?>component/bower_components/font-awesome/css/font-awesome.min.css"> -->
-  <!-- Ionicons -->
-  <!-- <link rel="stylesheet" href="<?= base_url(); ?>component/bower_components/Ionicons/css/ionicons.min.css"> -->
-  <!-- Theme style -->
-  <!-- <link rel="stylesheet" href="<?= base_url(); ?>component/dist/css/AdminLTE.min.css"> -->
-  <!-- DataTables -->
-  <!-- <link rel="stylesheet" href="<?= base_url(); ?>component/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
-
-  <!-- <link rel="stylesheet" href="<?= base_url(); ?>component/dist/css/skins/skin-blue-light.css"> -->
-
-  <!-- css control -->
-  <!-- <link rel="stylesheet" href="<?= base_url(); ?>component/dist/css/app.css">
-  <link rel="stylesheet" href="<?= base_url(); ?>component/dist/css/line-awesome.min.css"> -->
-  <!-- end css -->
-
-  <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?= base_url(); ?>component/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?= base_url(); ?>component/bower_components/font-awesome/css/font-awesome.min.css">
@@ -153,15 +135,6 @@ if (isset($_GET['page'])) {
                       <span style="color: #3B82F6;"><?php if (isset($totaldoorlock)) echo $totaldoorlock; ?> </span> <br> <span style="color: grey;">Total DoorLock</span>
                     </div>
                   </div>
-                  <!-- <div class="flex">
-                    <a class="flex items-center justify-center w-12 h-12 rounded-full bg-theme-37 dark:bg-dark-1 bg-opacity-20 hover:bg-opacity-30 text-white" href="">
-                      <i class="las la-door-open text-theme-39 text-xl font-black"></i>
-                    </a>
-                    <div class="mr-auto">
-                      <div class="text-theme-39 text-2xl font-medium leading-5 mt-3.5"><?php if (isset($totaldoorlock)) echo $totaldoorlock; ?></div>
-                      <div class="text-theme-38 text-opacity-70 flex items-center leading-4"> Total DoorLock </div>
-                    </div>
-                  </div> -->
                 </div>
               </div>
 
@@ -177,31 +150,9 @@ if (isset($_GET['page'])) {
                     </div>
                   </div>
                 </div>
-                <!-- <div class="box p-5 mt-6 bg-theme-40 intro-x">
-                  <div class="flex flex-wrap gap-3">
-                    <a class="flex items-center justify-center w-12 h-12 rounded-full bg-theme-41 dark:bg-dark-1 bg-opacity-20 hover:bg-opacity-30 text-white" href="">
-                      <i class="las la-door-closed text-theme-42 text-xl font-black"></i>
-                    </a>
-                    <div class="mr-auto">
-                      <div class="text-theme-42 text-2xl font-medium leading-5 mt-3.5"><?= $closed; ?> </div>
-                      <div class="text-theme-38 text-opacity-70 flex items-center leading-4"> Closed </div>
-                    </div>
-                  </div>
-                </div> -->
               </div>
 
               <div class="col-md-2" style="margin-bottom: 10px;">
-                <!-- <div class="box p-5 mt-6 bg-theme-45 intro-x">
-                  <div class="flex flex-wrap gap-3">
-                    <a class="flex items-center justify-center w-12 h-12 rounded-full bg-theme-44 dark:bg-dark-1 bg-opacity-20 hover:bg-opacity-30 text-white" href="">
-                      <i class="las la-door-open text-theme-43 text-xl font-black"></i>
-                    </a>
-                    <div class="mr-auto">
-                      <div class="text-theme-43 text-2xl font-medium leading-5 mt-3.5"><?= $open; ?> </div>
-                      <div class="text-theme-38 text-opacity-70 flex items-center leading-4"> Open </div>
-                    </div>
-                  </div>
-                </div> -->
                 <div class="card" style="background-color: #D1F9E5; padding: 10px;">
                   <div class="card-body" style="display: flex;">
                     <div class="icon rounded shadow" style="background-color: #B1F2D6; width: 30px; height: 30px; padding: 5px; border-radius: 50%; text-align: center;">
@@ -216,17 +167,6 @@ if (isset($_GET['page'])) {
               </div>
 
               <div class="col-md-2" style="margin-bottom: 10px;">
-                <!-- <div class="box p-5 mt-6 bg-theme-36 intro-x">
-                  <div class="flex flex-wrap gap-3">
-                    <a class="flex items-center justify-center w-12 h-12 rounded-full bg-theme-37 dark:bg-dark-1 bg-opacity-20 hover:bg-opacity-30 text-white" href="">
-                      <i class="las la-cog text-theme-39 text-xl font-black"></i>
-                    </a>
-                    <div class="mr-auto">
-                      <div class="text-theme-39 text-2xl font-medium leading-5 mt-3.5"><?= $auto; ?></div>
-                      <div class="text-theme-38 text-opacity-70 flex items-center leading-4"> Auto </div>
-                    </div>
-                  </div>
-                </div> -->
                 <div class="card" style="background-color: #DBEAFD; padding: 10px;">
                   <div class="card-body" style="display: flex;">
                     <div class="icon rounded shadow" style="background-color: #CCE2FD; width: 30px; height: 30px; padding: 5px; border-radius: 50%; text-align: center;">
@@ -241,17 +181,6 @@ if (isset($_GET['page'])) {
               </div>
 
               <div class="col-md-2" style="margin-bottom: 10px;">
-                <!-- <div class="box p-5 mt-6 bg-theme-48 intro-x">
-                  <div class="flex flex-wrap gap-3">
-                    <a class="flex items-center justify-center w-12 h-12 rounded-full bg-theme-47 dark:bg-dark-1 bg-opacity-20 hover:bg-opacity-30 text-white" href="">
-                      <i class="las la-wrench text-theme-46 text-xl font-black"></i>
-                    </a>
-                    <div class="mr-auto">
-                      <div class="text-theme-46 text-2xl font-medium leading-5 mt-3.5"><?= $manual; ?> </div>
-                      <div class="text-theme-38 text-opacity-70 flex items-center leading-4"> Manual </div>
-                    </div>
-                  </div>
-                </div> -->
                 <div class="card" style="background-color: #DDD6FD; padding: 10px;">
                   <div class="card-body" style="display: flex;">
                     <div class="icon rounded shadow" style="background-color: #D1C7FC; width: 30px; height: 30px; padding: 5px; border-radius: 50%; text-align: center;">
@@ -379,97 +308,6 @@ if (isset($_GET['page'])) {
                                   <?php } else { ?>
                                     <div style="background-color: #8B3AEE; padding-left: 5px; padding-right: 5px; border-radius: 20px; color: white; margin-right: 3px; font-weight: bold;">Manual</div>
                                   <?php } ?>
-
-                                  <!-- <div class="dropdown">
-                                    <a href="javascript:;" title="control relay" class="dropdown-toggle block" aria-expanded="true">
-                                      <i class="las la-ellipsis-v text-xl"></i>
-                                    </a>
-                                    <div class="dropdown-menu w-40">
-                                      <div class="dropdown-menu__content box dark:bg-dark-1">
-                                        <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium text-center">Doorlock Control</div>
-                                        <div class="p-2">
-                                          <div class="mt-2 text-center">
-                                          <?php
-                                          if ($door->auto == 0) {
-                                          ?>
-                                              <label>Lock | unLock</label>
-                                              <div class="mt-1">
-                                                <div class="col-md-4">
-                                                </div>
-                                                <div class="form-check">
-                                                  <form role="form" action="<?= base_url(); ?>admin/control_relay" method="post">
-                                                    <input type="hidden" name="id_room" value="<?= $door->id_room; ?>">
-                                                    <input type="hidden" name="link" value="<?= $link; ?>">
-                                                    <input name="checkbox_relay" value="1" onchange="this.form.submit()" class="form-check-switch" type="checkbox" <?php if ($door->relay_open == 1) echo "checked"; ?>>
-                                                  </form>
-                                                </div>
-                                              </div>
-                                            <?php
-                                          } else {
-                                            echo "set position switch to Manual";
-                                          }
-                                            ?>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div> -->
-                                  <!-- <?php if ($door->auto == 1) { ?>
-                                    <div class="dropdown">
-                                      <a href="javascript:;" title="set position" class="dropdown-toggle block" aria-expanded="true">
-                                        <div style="background-color: #3B82F6; padding-left: 5px; padding-right: 5px; border-radius: 20px; color: white; margin-right: 3px; font-weight: bold;">Auto</div>
-                                      </a>
-                                      <div class="dropdown-menu w-40">
-                                        <div class="dropdown-menu__content box dark:bg-dark-1">
-                                          <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium text-center">Position Switch</div>
-                                          <div class="p-2">
-                                            <div class="mt-2 text-center form-group">
-                                              <label>Auto | Manual</label>
-                                              <div class="mt-1">
-                                                <div class="col-md-4">
-                                                </div>
-                                                <div class="form-check">
-                                                  <form role="form" action="<?= base_url(); ?>admin/positionswitch" method="post">
-                                                    <input type="hidden" name="id_room" value="<?= $door->id_room; ?>">
-                                                    <input type="hidden" name="link" value="<?= $link; ?>">
-                                                    <input name="checkbox_position" value="0" onchange="this.form.submit()" class="form-check-switch" type="checkbox" <?php if ($door->auto == 0) echo "checked"; ?>>
-                                                  </form>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  <?php } else { ?>
-                                    <div class="dropdown">
-                                      <a href="javascript:;" title="set position" class="dropdown-toggle block" aria-expanded="true">
-                                        <div style="background-color: #8B3AEE; padding-left: 5px; padding-right: 5px; border-radius: 20px; color: white; margin-right: 3px; font-weight: bold;">Manual</div>
-                                      </a>
-                                      <div class="dropdown-menu w-40">
-                                        <div class="dropdown-menu__content box dark:bg-dark-1">
-                                          <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium text-center">Position Switch</div>
-                                          <div class="p-2">
-                                            <div class="mt-2 text-center form-group">
-                                              <label>Auto | Manual</label>
-                                              <div class="mt-1">
-                                                <div class="col-md-4">
-                                                </div>
-                                                <div class="form-check">
-                                                  <form role="form" action="<?= base_url(); ?>admin/positionswitch" method="post">
-                                                    <input type="hidden" name="id_room" value="<?= $door->id_room; ?>">
-                                                    <input type="hidden" name="link" value="<?= $link; ?>">
-                                                    <input name="checkbox_position" value="0" onchange="this.form.submit()" class="form-check-switch" type="checkbox" <?php if ($door->auto == 0) echo "checked"; ?>>
-                                                  </form>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  <?php } ?> -->
-
                                 </div>
 
                                 <div>
@@ -705,25 +543,13 @@ if (isset($_GET['page'])) {
 
   <script src="<?= base_url(); ?>component/dist/js/Chart.min.js"></script>
   <script src="<?= base_url(); ?>component/dist/js/utils.js"></script>
-  <!-- jQuery 3 -->
-  <!-- <script src="<?= base_url(); ?>component/bower_components/jquery/dist/jquery.min.js"></script> -->
-  <!-- Bootstrap 3.3.7 -->
-  <!-- <script src="<?= base_url(); ?>component/bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
-  <!-- DataTables -->
-  <!-- <script src="<?= base_url(); ?>component/bower_components/datatables.net/js/jquery.dataTables.min.js"></script> -->
-  <!-- <script src="<?= base_url(); ?>component/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script> -->
-  <!-- AdminLTE App -->
-  <!-- <script src="<?= base_url(); ?>component/dist/js/adminlte.min.js"></script> -->
+
   <!-- page script -->
   <script>
     $(function() {
       $("#t1").DataTable();
     });
   </script>
-
-  <!-- script control -->
-  <!-- <script src="<?= base_url(); ?>component/dist/js/app.js"></script> -->
-  <!-- end script -->
 </body>
 
 </html>

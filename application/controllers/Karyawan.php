@@ -648,7 +648,7 @@ class Karyawan extends CI_Controller
 
 	public function monitoring()
 	{
-		if ($this->session->userdata('monitoring') == 1) {
+		if ($this->session->userdata('monitoring_room') == 1) {
 			$namauser = $this->session->userdata('userlogin');
 			$id_karyawan = $this->session->userdata('id_karyawan');
 			$nik = $this->session->userdata('nik');

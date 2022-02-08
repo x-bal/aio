@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="box-body">
-                                <form action="<?= base_url('admin/notif-door/update/' . $notif->id_telegram) ?>" method="post">
+                                <form action="<?= base_url('admin/notif-door/update/' . $notif->id_telegram_door) ?>" method="post">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <div class="form-group">
@@ -102,7 +102,7 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label for="waktu">Waktu</label>
-                                                <input type="number" name="waktu" id="waktu" class="form-control">
+                                                <input type="number" name="waktu" id="waktu" class="form-control" value="<?= $notif->waktu ?>">
                                             </div>
                                         </div>
                                     </div>
