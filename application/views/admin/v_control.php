@@ -71,6 +71,7 @@ if (isset($_GET['page'])) {
 
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?= base_url(); ?>component/bower_components/bootstrap/dist/css/bootstrap.min.css">
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?= base_url(); ?>component/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -94,6 +95,12 @@ if (isset($_GET['page'])) {
   <link rel="stylesheet" href="<?= base_url(); ?>component/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    .doorlock:hover {
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body class="hold-transition skin-blue-light sidebar-mini">
@@ -223,80 +230,80 @@ if (isset($_GET['page'])) {
                           <div class="col-md-3" style="margin-bottom: 20px;">
                             <div class="card shadow" style="background-color:#FEFEFE;">
                               <div class="card-body" style="padding: 10px;">
-                                <div class="head" style="display: flex; justify-content: space-between;">
-                                  <div class="title">
-                                    <span><b><?= $door->nama_room ?></b></span><br>
-                                    <span><b>Dept. <?= $door->nama_department ?></b></span>
-                                  </div>
-
-                                  <div class="dropdown user user-menu">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                      <i class="fas fa-ellipsis-v"></i>
-                                    </a>
-
-                                    <ul class="dropdown-menu">
-                                      <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium text-center">DoorLock Control
-                                        <hr>
-                                      </div>
-
-                                      <div class="p-2">
-                                        <div class="mt-2 text-center form-group">
-                                          <?php if ($door->auto == 0) { ?>
-                                            <label>Lock | unLock</label>
-                                            <div class="mt-1">
-                                              <div class="form-check">
-                                                <form role="form" action="<?= base_url(); ?>admin/control_relay" method="post">
-                                                  <input type="hidden" name="id_room" value="<?= $door->id_room; ?>">
-                                                  <input type="hidden" name="link" value="<?= $link; ?>">
-                                                  <input name="checkbox_relay" value="1" onchange="this.form.submit()" class="form-check-switch" type="checkbox" <?php if ($door->relay_open == 1) echo "checked"; ?>>
-                                                </form>
-                                              </div>
-                                            </div>
-                                          <?php } else {
-                                            echo " Set position switch to Manual";
-                                          } ?>
-                                        </div>
-                                      </div>
-
-                                      <?php if ($door->auto == 1) { ?>
-                                        <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium text-center">Position Switch</div>
-                                        <div class="p-2">
-                                          <div class="mt-2 text-center form-group">
-                                            <label>Auto | Manual</label>
-                                            <div class="mt-1">
-                                              <div class="form-check">
-                                                <form role="form" action="<?= base_url(); ?>admin/positionswitch" method="post">
-                                                  <input type="hidden" name="id_room" value="<?= $door->id_room; ?>">
-                                                  <input type="hidden" name="link" value="<?= $link; ?>">
-                                                  <input name="checkbox_position" value="0" onchange="this.form.submit()" class="form-check-switch shadow" type="checkbox" <?php if ($door->auto == 0) echo "checked"; ?>>
-                                                </form>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      <?php } else { ?>
-                                        <div class="px-4 py-2 border-b border-gray-200 dark:border-dark-5 font-medium text-center">Position Switch</div>
-                                        <div class="p-2">
-                                          <div class="mt-2 text-center form-group">
-                                            <label>Auto | Manual</label>
-                                            <div class="mt-1">
-                                              <div class="form-check">
-                                                <form role="form" action="<?= base_url(); ?>admin/positionswitch" method="post">
-                                                  <input type="hidden" name="id_room" value="<?= $door->id_room; ?>">
-                                                  <input type="hidden" name="link" value="<?= $link; ?>">
-                                                  <input name="checkbox_position" value="0" onchange="this.form.submit()" class="form-check-switch" type="checkbox" <?php if ($door->auto == 0) echo "checked"; ?>>
-                                                </form>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      <?php } ?>
-
-                                    </ul>
-                                  </div>
+                                <div class="head">
+                                  <span><b><?= $door->nama_room ?></b></span><br>
+                                  <span><b>Dept. <?= $door->nama_department ?></b></span>
                                 </div>
 
                                 <div class="status" style="display: flex; margin-top: 7px;">
+                                  <div class="dropdown">
+                                    <div class="dropdown-toggle doorlock" data-toggle="dropdown" style="background-color: #6AB7BF; padding-left: 5px; padding-right: 5px; border-radius: 20px; color: white; margin-right: 3px; font-weight: bold;">
+                                      DoorLock
+                                    </div>
+
+                                    <ul class="dropdown-menu">
+                                      <li>
+                                        <div class="text-center">DoorLock Control
+                                          <hr>
+                                        </div>
+
+                                        <div class="p-2">
+                                          <div class="mt-2 text-center form-group">
+                                            <?php if ($door->auto == 0) { ?>
+                                              <label>Lock | unLock</label>
+                                              <div class="mt-1">
+                                                <div class="form-check">
+                                                  <form role="form" action="<?= base_url(); ?>admin/control_relay" method="post">
+                                                    <input type="hidden" name="id_room" value="<?= $door->id_room; ?>">
+                                                    <input type="hidden" name="link" value="<?= $link; ?>">
+                                                    <input name="checkbox_relay" value="1" onchange="this.form.submit()" class="form-check-switch" type="checkbox" <?php if ($door->relay_open == 1) echo "checked"; ?>>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            <?php } else {
+                                              echo " Set position switch to Manual";
+                                            } ?>
+                                          </div>
+                                        </div>
+
+                                        <?php if ($door->auto == 1) { ?>
+                                          <div class="text-center">Position Switch</div>
+                                          <div class="p-2">
+                                            <div class="mt-2 text-center form-group">
+                                              <label>Auto | Manual</label>
+                                              <div class="mt-1">
+                                                <div class="form-check">
+                                                  <form role="form" action="<?= base_url(); ?>admin/positionswitch" method="post">
+                                                    <input type="hidden" name="id_room" value="<?= $door->id_room; ?>">
+                                                    <input type="hidden" name="link" value="<?= $link; ?>">
+                                                    <input name="checkbox_position" value="0" onchange="this.form.submit()" class="form-check-switch shadow" type="checkbox" <?php if ($door->auto == 0) echo "checked"; ?>>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        <?php } else { ?>
+                                          <div class="text-center">Position Switch</div>
+                                          <div class="p-2">
+                                            <div class="mt-2 text-center form-group">
+                                              <label>Auto | Manual</label>
+                                              <div class="mt-1">
+                                                <div class="form-check">
+                                                  <form role="form" action="<?= base_url(); ?>admin/positionswitch" method="post">
+                                                    <input type="hidden" name="id_room" value="<?= $door->id_room; ?>">
+                                                    <input type="hidden" name="link" value="<?= $link; ?>">
+                                                    <input name="checkbox_position" value="0" onchange="this.form.submit()" class="form-check-switch" type="checkbox" <?php if ($door->auto == 0) echo "checked"; ?>>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        <?php } ?>
+                                      </li>
+
+                                    </ul>
+                                  </div>
+
                                   <?php if ($door->open == 1) { ?>
                                     <div style="background-color: #719669; padding-left: 5px; padding-right: 5px; border-radius: 20px; color: white; margin-right: 3px; font-weight: bold;">Open</div>
                                   <?php } else { ?>
