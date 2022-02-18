@@ -200,10 +200,10 @@
                         <th style="text-align:center">Section</th>
                         <th style="text-align:center">Position</th>
                         <th style="text-align:center">RFID</th>
-                        <th style="text-align:center">Status</th>
                         <th style="text-align:center">Disable Remarks</th>
                         <th style="text-align:center">Foto</th>
                         <th style="text-align:center">Created at</th>
+                        <th style="text-align:center">Status</th>
                         <th style="text-align:center">#</th>
                       </tr>
                     </thead>
@@ -237,15 +237,6 @@
                             <td style="text-align:center"><?php echo $row->uid_rfid; ?></td>
                             <td style="text-align:center">
                               <?php
-                              if ($row->status == 1) {
-                                echo "Aktif";
-                              } else {
-                                echo "Tidak Aktif";
-                              }
-                              ?>
-                            </td>
-                            <td style="text-align:center">
-                              <?php
                               if ($row->disable_remarks == 1) {
                                 echo "Ya";
                               } else {
@@ -255,6 +246,9 @@
                             </td>
                             <td style="text-align:center"><img src="<?= base_url(); ?>component/dist/img/karyawan/<?= $row->foto; ?>" class="img-circle" width="50px" height="auto" alt="User Image"></td>
                             <td style="text-align:center"><?php echo date("d-M-Y H:i:s", $row->created_karyawan); ?></td>
+                            <td style="text-align:center">
+                              <a href="<?= base_url('admin/activated/' . $row->id_karyawan) ?>" class="btn btn-sm btn-<?= $row->status == 1 ? 'success' : 'danger' ?>" onclick="return confirm('Ubah status aktifasi?')"><?= $row->status == 1 ? 'Aktif' : 'Nonaktif' ?></a>
+                            </td>
                             <td style="text-align: center">
                               <a href="<?= base_url() ?>admin/set_access/<?= $row->id_karyawan ?>" title="Set Access Room" class="btn btn-warning btn-sm"><i class="glyphicon glyphicon-list"></i></a>
                               <a href="<?= base_url() ?>admin/menu_access/<?= $row->id_karyawan ?>?role=karyawan" title="Set Menu Access Room" class="btn btn-info btn-sm"><i class="glyphicon glyphicon-th"></i></a>

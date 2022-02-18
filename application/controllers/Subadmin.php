@@ -452,4 +452,27 @@ class Subadmin extends CI_Controller
 			redirect(base_url('admin/list_admin'));
 		}
 	}
+
+	public function activated($id)
+	{
+		if ($this->session->userdata('userlogin')) {
+			$role = $this->session->userdata('role');
+			if ($role == 1 || $role == 2) {
+				$karyawan = $this->db->get_where('karyawan', ['id_karyawan' => $id])->row();
+				if ($karyawan->status == 1) {
+					$data = ['status' => 0];
+				} else {
+					$data = ['status' => 1];
+				}
+
+				$this->db->where('id_karyawan', $id);
+				$this->db->update('karyawan', $data);
+
+				redirect(base_url() . 'admin/list_karyawan');
+			} else {
+				$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Area khusus super admin</div>");
+				redirect(base_url() . 'login/admin');
+			}
+		}
+	}
 }

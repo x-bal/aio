@@ -15,11 +15,6 @@ class Karyawan extends CI_Controller
 		$this->load->model('m_room');
 		$this->load->library('bcrypt');
 		date_default_timezone_set("asia/jakarta");
-
-		if (!$this->session->userdata('userlogin')) {
-			$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Mohon Login terlebih dahulu</div>");
-			redirect(base_url() . 'login/admin');
-		}
 	}
 
 	public function index()
@@ -101,7 +96,7 @@ class Karyawan extends CI_Controller
 
 	public function dashboard()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('status') == 1) {
 			$namauser = $this->session->userdata('userlogin');
 			$id_karyawan = $this->session->userdata('id_karyawan');
 			$nik = $this->session->userdata('nik');
@@ -162,7 +157,7 @@ class Karyawan extends CI_Controller
 
 	public function setting()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('status') == 1) {
 			$namauser = $this->session->userdata('userlogin');
 			$id_karyawan = $this->session->userdata('id_karyawan');
 			$nik = $this->session->userdata('nik');
@@ -199,7 +194,7 @@ class Karyawan extends CI_Controller
 
 	public function save_change_password()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('status') == 1) {
 			$id_karyawan = $this->session->userdata('id_karyawan');
 
 			$id_karyawan_post = 0;
@@ -253,7 +248,7 @@ class Karyawan extends CI_Controller
 
 	public function log()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('status') == 1) {
 			$namauser = $this->session->userdata('userlogin');
 			$id_karyawan = $this->session->userdata('id_karyawan');
 			$nik = $this->session->userdata('nik');
@@ -314,7 +309,7 @@ class Karyawan extends CI_Controller
 
 	public function remarksroom()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('status') == 1) {
 			$namauser = $this->session->userdata('userlogin');
 			$id_karyawan = $this->session->userdata('id_karyawan');
 			$nik = $this->session->userdata('nik');
@@ -353,7 +348,7 @@ class Karyawan extends CI_Controller
 
 	public function fillremarks($id = null)
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('status') == 1) {
 			$namauser = $this->session->userdata('userlogin');
 			$id_karyawan = $this->session->userdata('id_karyawan');
 			$nik = $this->session->userdata('nik');
@@ -392,7 +387,7 @@ class Karyawan extends CI_Controller
 
 	public function fillremarkssave()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('status') == 1) {
 			$id_karyawan = $this->session->userdata('id_karyawan');
 
 			$id_karyawan_post = 0;
@@ -442,7 +437,7 @@ class Karyawan extends CI_Controller
 
 	public function save_change_foto()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('status') == 1) {
 			$namauser = $this->session->userdata('userlogin');
 			$id_karyawan = $this->session->userdata('id_karyawan');
 			$nik = $this->session->userdata('nik');
@@ -492,7 +487,7 @@ class Karyawan extends CI_Controller
 
 	public function downloadlog()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('status') == 1) {
 			$id_position = $this->session->userdata('id_position');
 			$id_department = $this->session->userdata('id_department');
 
@@ -648,7 +643,7 @@ class Karyawan extends CI_Controller
 
 	public function monitoring()
 	{
-		if ($this->session->userdata('monitoring_room') == 1) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('monitoring_room') == 1) {
 			$namauser = $this->session->userdata('userlogin');
 			$id_karyawan = $this->session->userdata('id_karyawan');
 			$nik = $this->session->userdata('nik');
@@ -690,7 +685,7 @@ class Karyawan extends CI_Controller
 
 	public function monitoringdep()
 	{
-		if ($this->session->userdata('userlogin')) {
+		if ($this->session->userdata('userlogin') && $this->session->userdata('userlogin')) {
 			$namauser = $this->session->userdata('userlogin');
 			$id_karyawan = $this->session->userdata('id_karyawan');
 			$nik = $this->session->userdata('nik');

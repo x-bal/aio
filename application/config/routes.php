@@ -77,6 +77,8 @@ $route['admin/edit_room/(:num)'] = 'room/edit_room/$1';
 $route['admin/save_edit_room'] = 'room/save_edit_room';
 $route['admin/uploadimg_room/(:num)'] = 'room/uploadimg_room/$1';
 $route['admin/save_upload_room'] = 'room/save_upload_room';
+$route['admin/count-karyawan/(:num)'] = 'room/karyawan/$1';
+$route['admin/export-karyawan/(:num)'] = 'room/export/$1';
 
 $route['admin/list_karyawan'] = 'subadmin/list_karyawan';
 $route['admin/add_karyawan'] = 'subadmin/add_karyawan';
@@ -89,6 +91,7 @@ $route['admin/set_access/(:num)'] = 'subadmin/set_access/$1';
 $route['admin/save_set_access'] = 'subadmin/save_set_access';
 $route['admin/menu_access/(:num)'] = 'subadmin/menu_access/$1';
 $route['admin/menu_access_update/(:num)'] = 'subadmin/menu_access_update/$1';
+$route['admin/activated/(:num)'] = 'subadmin/activated/$1';
 
 $route['admin/control'] = 'control/control';
 $route['admin/monitoring'] = 'control/monitoring';

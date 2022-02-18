@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Room extends CI_Controller
 {
 
@@ -299,6 +302,70 @@ class Room extends CI_Controller
 				}
 
 				redirect(base_url() . 'admin/list_room');
+			} else {
+				$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Area khusus super admin</div>");
+				redirect(base_url() . 'login/admin');
+			}
+		}
+	}
+
+	public function karyawan($id)
+	{
+		$data = [
+			'namauser' => $this->session->userdata('userlogin'),
+			'iduser' => $this->session->userdata('id'),
+			'username' => $this->session->userdata('username'),
+			'email' => $this->session->userdata('email'),
+			'avatar' => $this->session->userdata('image'),
+			'role' => $this->session->userdata('role'),
+			'rooms' => $this->db->get('room')->result(),
+			'karyawan' => $this->db->get_where('access_room_karyawan', ['id_room' => $id])->result()
+		];
+
+		$this->load->view('admin/v_count-karyawan', $data);
+	}
+
+	public function export($id)
+	{
+		if ($this->session->userdata('userlogin')) {
+			$role = $this->session->userdata('role');
+
+			if ($role == 1) {
+				$karyawan = $this->db->get_where('access_room_karyawan', ['id_room' => $id])->result();
+
+				$spreadsheet = new Spreadsheet;
+				$baris = 1;
+				$spreadsheet->setActiveSheetIndex(0)
+					->setCellValue('A1', 'No')
+					->setCellValue('B1', 'Nama')
+					->setCellValue('C1', 'Nik')
+					->setCellValue('D1', 'Department')
+					->setCellValue('E1', 'Section');
+
+				$baris++;
+				$nomor = 1;
+
+				if (isset($karyawan)) {
+					foreach ($karyawan as $kary) {
+						$spreadsheet->setActiveSheetIndex(0)
+							->setCellValue('A' . $baris, $nomor)
+							->setCellValue('B' . $baris, $this->db->get_where('karyawan', ['id_karyawan' => $kary->id_karyawan])->row()->nama_karyawan)
+							->setCellValue('C' . $baris, $this->db->get_where('karyawan', ['id_karyawan' => $kary->id_karyawan])->row()->nik)
+							->setCellValue('D' . $baris, $this->db->get_where('department', ['id_department' => $this->db->get_where('department_section', ['id_section' => $this->db->get_where('karyawan', ['id_karyawan' => $kary->id_karyawan])->row()->id_section])->row()->id_department])->row()->nama_department)
+							->setCellValue('E' . $baris, $this->db->get_where('department_section', ['id_section' => $this->db->get_where('karyawan', ['id_karyawan' => $kary->id_karyawan])->row()->id_section])->row()->nama_section);
+
+						$baris++;
+						$nomor++;
+					}
+				}
+
+				$writer = new Xlsx($spreadsheet);
+
+				header('Content-Type: application/vnd.ms-excel');
+				header('Content-Disposition: attachment;filename="Dafta Karyawan Department _' . $this->db->get_where('department', ['id_department' => $this->db->get_where('room', ['id_room' => $this->uri->segment(3)])->row()->id_department])->row()->nama_department . '.xlsx"');
+				header('Cache-Control: max-age=0');
+
+				$writer->save('php://output');
 			} else {
 				$this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i> Area khusus super admin</div>");
 				redirect(base_url() . 'login/admin');

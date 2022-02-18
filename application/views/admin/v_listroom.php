@@ -79,12 +79,14 @@
                         <th style="text-align:center">Tipe Ruangan</th>
                         <th style="text-align:center">Remarks</th>
                         <th style="text-align:center">Gambar</th>
+                        <th style="text-align:center">Total Karyawan</th>
                         <th style="text-align:center">#</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php if (empty($listdata)) { ?>
                         <tr>
+                          <td>Data tidak ditemukan</td>
                           <td>Data tidak ditemukan</td>
                           <td>Data tidak ditemukan</td>
                           <td>Data tidak ditemukan</td>
@@ -125,6 +127,10 @@
                                 echo "-";
                               }
                               ?>
+                            </td>
+                            <td style="text-align:center">
+                              <a href="<?= base_url('admin/count-karyawan/' . $row->id_room) ?>" class="btn btn-sm btn-info"> <?= $this->db->query(" SELECT COUNT(id_karyawan) as total FROM access_room_karyawan WHERE id_room = $row->id_room ")->row()->total; ?>
+                              </a>
                             </td>
                             <td style="text-align:center">
                               <a href="<?= base_url() ?>admin/uploadimg_room/<?= $row->id_room ?>" title="upload gambar" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-picture"></i></a>
